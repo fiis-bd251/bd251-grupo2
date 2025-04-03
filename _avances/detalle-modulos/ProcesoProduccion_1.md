@@ -1,3 +1,8 @@
+## Responsable
+Lisseth del Carmen Arnao Morocho
+
+---
+
 ## ¿Cuál es el objetivo de su módulo?
 
 El módulo de **Proceso Productivo** es el encargado del ingreso de datos de cada evento del proceso que sucede por **Lote de Producto** relacionado a la **Orden**. Los eventos son:
