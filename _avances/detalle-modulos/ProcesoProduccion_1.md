@@ -85,4 +85,4 @@ Es decir, está conectado al proceso de **planeamiento** que realiza el **módul
 
 ## ¿Cómo se reserva el uso / la propiedad del producto o servicio generado?
 
-El acceso se **restringe** únicamente a los empleados dentro del **Área de Producción**, quienes podrán **ingresar, editar y actualizar** la información de las **Órdenes de Producción**.
+El ticket es la **Órden de Producción**, ya que el proceso iniciará únicamente cuando se haya creado la orden. Este designa y garantiza los recursos necesarios.
