@@ -23,3 +23,4 @@ Los recursos se saignan deacuerdo con los servicios que se van a brindar en ese 
 utilizan recurso humano, fisico, tecnologico y los insumos. 
 
 6. ¿Cómo se reserva el uso la propiedad del producto o servicio generado? 
+Es la coordinacion entre las areas involucradas mediante algun correo donde especifican la fecha, insumo reservado y responsables de realizarlo.
