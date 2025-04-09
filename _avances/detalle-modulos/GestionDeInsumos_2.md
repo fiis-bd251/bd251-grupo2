@@ -19,8 +19,7 @@ El modulo brinda un servio de gestion del flujo de insumos:
 Este modulo utiliza recurso humano (encargado de almacen, area de produccion y area de logistica encargado del reabastecimiento), los insumos, espacios de almacen y recursos tecnologicos. 
 
 5. ¿Cómo se planifican el uso de estos recursos? 
-Los recursos se saignan deacuerdo con los servicios que se van a brindar en ese momento. Por ejemplo en recepcion de insumos se 
-utilizan recurso humano, fisico, tecnologico y los insumos. 
+Los recursos se asignan deacuerdo a una orden de produccio. Ya que en dicha orden indican las cantidades de cada insumo a utiliar, la fecha y el lote a producir. Para ello tambien se planifica recurso humano y tecnologico.
 
 6. ¿Cómo se reserva el uso la propiedad del producto o servicio generado? 
-Es la coordinacion entre las areas involucradas mediante algun correo donde especifican la fecha, insumo reservado y responsables de realizarlo.
+Es la coordinacion entre las areas involucradas es un orden de reserva o reserva en lagunos sistemas para asegurar la trazabilidad. Este documento especificas el area remitente y receptora, insumo reservado y la fecha.
