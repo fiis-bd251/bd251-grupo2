@@ -1,25 +1,25 @@
-# MOdulo de Gestion de Insumos - Alexis Boza Acuña
+# Modulo de Gestion de Insumos - Alexis Boza Acuña
 
 ## CUESTIONARIO:
 
-1. ¿Cuál es el objetivo principal del módulo de Gestión de Insumos? 
+#1. ¿Cuál es el objetivo principal del módulo de Gestión de Insumos? 
 El objetivo principal del módulo de Gestión de Insumos es garantizar el control eficiente de todo el ciclo de las materias primas dentro de la empresa, desde su recepción y almacenamiento hasta su distribución para producción, aplicando el método FIFO para optimizar la rotación del inventario, generando alertas automáticas para prevenir faltantes por stock bajo o vencimientos próximos, y asegurando una trazabilidad de los insumos. 
 
-2. ¿A quién beneficia el funcionamiento de su módulo (área interna, cliente persona o empresa)? 
+#2. ¿A quién beneficia el funcionamiento de su módulo (área interna, cliente persona o empresa)? 
 El módulo está diseñado para beneficiar principalmente al area de almacenamiento, logistica y produccion. Ya que este modulo se encarga en la parte de recpeccion insumos, almacenamiento y asignar insumos para el area de produccion. Asi como algunas alertas de vencimineto y stock. 
 
-3. ¿Qué resultado genera su módulo? ¿Es un producto o un servicio? ¿Qué características tiene? 
+#3. ¿Qué resultado genera su módulo? ¿Es un producto o un servicio? ¿Qué características tiene? 
 El modulo brinda un servio de gestion del flujo de insumos: 
 - Recepcion de insumos 
 - Generar aletar de stock y vencimientos 
 - Abastecer por ordenes de produccion (FIFO) 
 - Realizar solicitud de insumos 
 
-4.-¿Qué recursos se emplean para obtener dicho resultado? 
+#4.-¿Qué recursos se emplean para obtener dicho resultado? 
 Este modulo utiliza recurso humano (encargado de almacen, area de produccion y area de logistica encargado del reabastecimiento), los insumos, espacios de almacen y recursos tecnologicos. 
 
-5. ¿Cómo se planifican el uso de estos recursos? 
+#5. ¿Cómo se planifican el uso de estos recursos? 
 Los recursos se asignan deacuerdo a una orden de produccio. Ya que en dicha orden indican las cantidades de cada insumo a utiliar, la fecha y el lote a producir. Para ello tambien se planifica recurso humano y tecnologico.
 
-6. ¿Cómo se reserva el uso la propiedad del producto o servicio generado? 
+#6. ¿Cómo se reserva el uso la propiedad del producto o servicio generado? 
 Es la coordinacion entre las areas involucradas es un orden de reserva o reserva en lagunos sistemas para asegurar la trazabilidad. Este documento especificas el area remitente y receptora, insumo reservado y la fecha.
