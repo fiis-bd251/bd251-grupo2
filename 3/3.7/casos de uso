@@ -1,0 +1,314 @@
+##  Recepción de productos terminados
+
+### 1. Caso de uso del sistema
+**Registro de Producto**
+
+### 2. Descripción del caso de uso
+El sistema permite registrar los productos terminados que ingresan al almacén. Se incluye tipo de fideo, cantidad, fecha de producción y de vencimiento.
+
+### 3. Actor(es)
+- **Operario de almacén**: Registra los productos.
+- **Supervisor de almacén**: Supervisa la recepción y validación.
+
+### 4. Precondiciones
+- El operario debe estar autenticado.
+- El producto debe haber pasado los controles de calidad.
+- Debe existir un lote registrado previamente.
+
+### 5. Postcondiciones
+- Producto registrado en la base de datos.
+- Código de lote generado.
+- Stock actualizado.
+
+### 6. Flujo de eventos
+
+| Paso | Acción del Actor                                                  | Respuesta del Sistema                                                  |
+|------|-------------------------------------------------------------------|------------------------------------------------------------------------|
+| 1    | Ingresa al sistema con sus credenciales                          | El sistema valida las credenciales y permite el acceso                |
+| 2    | Selecciona "Registro de Producto Terminado"                      | El sistema muestra el formulario de registro                          |
+| 3    | Ingresa los datos del producto (tipo, cantidad, fechas, lote)    | El sistema valida la información ingresada                            |
+| 4    | Confirma el registro                                              | El sistema guarda la información y genera un código de lote           |
+| 5    | Finaliza el proceso                                               | El sistema actualiza el stock y muestra confirmación                  |
+
+### 7. Flujo alternativo 1: Información errónea
+
+| Paso | Acción del Actor                      | Respuesta del Sistema                                 |
+|------|---------------------------------------|-------------------------------------------------------|
+| 1    | Ingresa información errónea o incompleta | El sistema muestra mensaje de error y solicita corrección |
+| 2    | Corrige y reenvía los datos           | El sistema valida y permite el registro si son correctos |
+
+### 8. Flujo alternativo 2: Lote duplicado
+
+| Paso | Acción del Actor                       | Respuesta del Sistema                                      |
+|------|----------------------------------------|------------------------------------------------------------|
+| 1    | Intenta registrar un lote existente    | El sistema alerta sobre el duplicado                       |
+| 2    | Verifica y ajusta los datos            | El sistema permite continuar si los datos corregidos son válidos |
+
+### 9. Requerimientos asociados
+- Validación de datos.
+- Generación de código de lote único.
+- Actualización de stock en tiempo real.
+
+### 10. Prototipo de interfaz
+- Pantalla de registro con campos para tipo, cantidad, fechas.
+- Botón de confirmación.
+- Mensajes de error por datos incorrectos o duplicados.
+
+---
+
+## 5.2.2 Gestión de Inventarios
+
+### 1. Caso de uso del sistema
+**Control y Actualización de Inventario**
+
+### 2. Descripción del caso de uso
+El sistema permite gestionar el inventario de productos terminados y materias primas. Los operarios pueden actualizar el stock, registrar entradas y salidas, y generar reportes de inventario en tiempo real.
+
+### 3. Actor(es)
+- **Operario de almacén**
+- **Supervisor de inventario**
+
+### 4. Precondiciones
+- El actor debe estar autenticado.
+- Debe existir inventario inicial en la base de datos.
+- Los productos deben estar correctamente etiquetados con su código de lote.
+
+### 5. Postcondiciones
+- Inventario actualizado.
+- Reportes generados.
+- Entradas y salidas registradas en el historial de movimientos.
+
+### 6. Flujo de eventos
+
+| Paso | Acción del Actor                        | Respuesta del Sistema                                        |
+|------|-----------------------------------------|--------------------------------------------------------------|
+| 1    | Ingresa al sistema                      | El sistema valida credenciales y permite acceso             |
+| 2    | Selecciona "Gestión de Inventario"      | El sistema muestra la lista de productos y cantidades       |
+| 3    | Registra entrada o salida               | El sistema solicita datos del producto (código, cantidad, motivo) |
+| 4    | Confirma operación                      | El sistema actualiza el stock y registra el movimiento      |
+| 5    | Finaliza el proceso                     | El sistema genera un reporte actualizado                    |
+
+### 7. Flujo alternativo 1: Información errónea
+
+| Paso | Acción del Actor             | Respuesta del Sistema                                |
+|------|------------------------------|------------------------------------------------------|
+| 1    | Ingresa información errónea | El sistema muestra error y solicita corrección       |
+| 2    | Corrige los datos            | El sistema valida y permite el registro si son correctos |
+
+### 8. Requerimientos asociados
+- Visualización del inventario en tiempo real.
+- Validación de datos.
+- Historial de movimientos.
+
+### 9. Prototipo de interfaz
+- Pantalla con opciones para registrar entradas y salidas.
+- Botón de confirmación.
+- Alertas por stock insuficiente o datos incorrectos.
+
+---
+
+(Contenido recortado por longitud. Continuará en la siguiente parte...)
+
+---
+
+## 5.2.3 Gestión de Packing
+
+### 1. Caso de uso del sistema
+**Empaque y Preparación de Productos para Despacho**
+
+### 2. Descripción del caso de uso
+Permite gestionar el empaque de productos terminados, verificando que cumplan con las especificaciones de presentación y cantidad antes del despacho.
+
+### 3. Actor(es)
+- **Operario de packing**
+- **Supervisor de packing**
+
+### 4. Precondiciones
+- El operario debe estar autenticado.
+- Productos disponibles en almacén.
+- Orden de pedido registrada.
+
+### 5. Postcondiciones
+- Productos empacados y listos para despacho.
+- Registro del packing generado.
+- Estado del pedido actualizado.
+
+### 6. Flujo de eventos
+
+| Paso | Acción del Actor                        | Respuesta del Sistema                                   |
+|------|-----------------------------------------|---------------------------------------------------------|
+| 1    | Ingresa al sistema                      | El sistema valida credenciales y permite acceso        |
+| 2    | Selecciona "Gestión de Packing"         | El sistema muestra pedidos pendientes de packing       |
+| 3    | Selecciona pedido y verifica productos  | El sistema muestra los detalles del pedido             |
+| 4    | Registra el empaque                     | El sistema actualiza el estado del pedido              |
+| 5    | Finaliza el proceso                     | El sistema genera un reporte de packing                |
+
+### 7. Flujo alternativo 1: Producto defectuoso
+
+| Paso | Acción del Actor                      | Respuesta del Sistema                                   |
+|------|---------------------------------------|---------------------------------------------------------|
+| 1    | Detecta producto defectuoso           | El sistema permite reportar el incidente                |
+| 2    | Sustituye el producto                 | El sistema actualiza inventario y registra corrección   |
+
+### 8. Requerimientos asociados
+- Trazabilidad del proceso de packing.
+- Validación de cantidad y calidad.
+- Historial de packing por pedido.
+
+### 9. Prototipo de interfaz
+- Pantalla con lista de pedidos, opciones de registro y reporte de incidentes.
+- Botón de confirmación.
+
+---
+
+##  Gestión de Picking
+
+### 1. Caso de uso del sistema
+**Selección y Preparación de Productos para Despacho**
+
+### 2. Descripción del caso de uso
+Permite gestionar el proceso de picking, asegurando que los productos correctos sean seleccionados y preparados para su posterior empaque y despacho.
+
+### 3. Actor(es)
+- **Operario de picking**
+- **Supervisor de almacén**
+
+### 4. Precondiciones
+- El operario debe estar autenticado.
+- Orden de pedido registrada.
+- Productos disponibles en almacén.
+
+### 5. Postcondiciones
+- Productos seleccionados y preparados.
+- Inventario actualizado.
+- Registro del picking generado.
+
+### 6. Flujo de eventos
+
+| Paso | Acción del Actor                        | Respuesta del Sistema                                      |
+|------|-----------------------------------------|------------------------------------------------------------|
+| 1    | Ingresa al sistema                      | El sistema valida credenciales                             |
+| 2    | Selecciona "Gestión de Picking"         | El sistema muestra pedidos pendientes                      |
+| 3    | Visualiza productos del pedido          | El sistema muestra detalles del pedido                     |
+| 4    | Recoge productos del almacén            | El sistema verifica disponibilidad                         |
+| 5    | Registra selección                      | El sistema actualiza estado del pedido e inventario        |
+| 6    | Finaliza proceso                        | El sistema genera reporte de picking                       |
+
+### 7. Flujo alternativo 1: Stock insuficiente
+
+| Paso | Acción del Actor                        | Respuesta del Sistema                                  |
+|------|-----------------------------------------|--------------------------------------------------------|
+| 1    | Selecciona producto sin stock           | El sistema alerta por stock insuficiente               |
+| 2    | Reporta al supervisor                   | El sistema registra la incidencia                      |
+
+### 8. Requerimientos asociados
+- Trazabilidad del proceso de picking.
+- Validación de cantidad y tipo de productos.
+- Historial por pedido.
+
+### 9. Prototipo de interfaz
+- Pantalla para selección de pedidos y registro de productos.
+- Botón de confirmación.
+- Mensajes de alerta por errores o faltantes.
+
+---
+
+##  Gestión de Devolución de Productos
+
+### 1. Caso de uso del sistema
+**Devolución de Productos al Almacén**
+
+### 2. Descripción del caso de uso
+Permite gestionar devoluciones al almacén, asegurando control sobre cantidades y condiciones de productos devueltos.
+
+### 3. Actor(es)
+- **Operario de almacén**
+- **Supervisor de almacén**
+
+### 4. Precondiciones
+- El operario debe estar autenticado.
+- Motivo válido para devolución.
+- Inspección de productos antes del reingreso.
+
+### 5. Postcondiciones
+- Productos devueltos registrados.
+- Inventario actualizado.
+- Historial de devoluciones generado.
+
+### 6. Flujo de eventos
+
+| Paso | Acción del Actor                         | Respuesta del Sistema                                    |
+|------|------------------------------------------|----------------------------------------------------------|
+| 1    | Ingresa al sistema                       | El sistema valida credenciales                           |
+| 2    | Selecciona "Gestión de Devoluciones"     | El sistema muestra lista de devoluciones pendientes      |
+| 3    | Registra productos y motivo              | El sistema verifica si pueden reincorporarse             |
+| 4    | Supervisor inspecciona                   | El sistema aprueba o rechaza la devolución               |
+| 5    | Finaliza proceso                         | El sistema genera reporte de devolución                  |
+
+### 7. Flujo alternativo 1: Producto no apto
+
+| Paso | Acción del Actor                        | Respuesta del Sistema                                      |
+|------|-----------------------------------------|------------------------------------------------------------|
+| 1    | Identifica producto no apto             | El sistema lo marca como "No apto para reingreso"         |
+| 2    | Registra para disposición final         | El sistema actualiza estado y genera reporte               |
+
+### 8. Requerimientos asociados
+- Trazabilidad del proceso.
+- Validación de cantidad y condiciones.
+- Historial de devoluciones.
+
+### 9. Prototipo de interfaz
+- Pantalla de devolución con campos de motivo y estado.
+- Botón de confirmación.
+- Alertas por discrepancias.
+
+---
+
+##  Gestión de Salida de Productos (Despacho)
+
+### 1. Caso de uso del sistema
+**Registro de Salida de Productos**
+
+### 2. Descripción del caso de uso
+Permite gestionar la salida de productos del almacén. El picking y packing ya fueron realizados, esta etapa se enfoca en la validación final y el registro de la salida.
+
+### 3. Actor(es)
+- **Operario de almacén**
+- **Supervisor de almacén**
+
+### 4. Precondiciones
+- Autenticación del operario.
+- Orden de despacho registrada.
+- Productos empacados y etiquetados.
+
+### 5. Postcondiciones
+- Salida registrada.
+- Inventario actualizado.
+- Historial de despacho generado.
+
+### 6. Flujo de eventos
+
+| Paso | Acción del Actor                         | Respuesta del Sistema                                    |
+|------|------------------------------------------|----------------------------------------------------------|
+| 1    | Ingresa al sistema                       | El sistema valida credenciales                           |
+| 2    | Selecciona "Gestión de Despacho"         | El sistema muestra pedidos listos para salida            |
+| 3    | Escanea o registra productos             | El sistema valida con la orden e inventario              |
+| 4    | Confirma la salida                       | El sistema actualiza inventario y registra la salida     |
+| 5    | Supervisor aprueba despacho              | El sistema genera reporte y finaliza proceso             |
+
+### 7. Flujo alternativo 1: Producto no coincide
+
+| Paso | Acción del Actor                        | Respuesta del Sistema                                      |
+|------|-----------------------------------------|------------------------------------------------------------|
+| 1    | Producto no coincide con orden          | El sistema alerta por error                                |
+| 2    | Corrige o informa al supervisor         | El sistema valida y permite continuar                      |
+
+### 8. Requerimientos asociados
+- Trazabilidad del despacho.
+- Validación de productos despachados.
+- Historial de salidas por pedido.
+
+### 9. Prototipo de interfaz
+- Pantalla con escaneo, registro y validación.
+- Botón de confirmación.
+- Alertas por discrepancias.
