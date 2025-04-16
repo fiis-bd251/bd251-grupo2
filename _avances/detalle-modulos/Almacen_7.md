@@ -1,19 +1,20 @@
-# Módulo de Almacén de Productos Terminados
+# Módulo de Almacén
 
 ## ¿Cuál es el objetivo de su módulo?
+
 El objetivo del módulo de almacén de productos terminados es garantizar el almacenamiento eficiente, seguro y organizado de los fideos producidos, asegurando su correcta conservación y disponibilidad para su distribución y comercialización.
 
-## ¿A quién beneficia el funcionamiento de su módulo?
+## ¿A quién beneficia el funcionamiento de su módulo (área interna, cliente - persona o empresa)?
 
-- **Área de logística y distribución:** Facilita la planificación y despacho de pedidos.
-- **Empresa en general:** Minimiza pérdidas por deterioro o vencimiento y mejora la eficiencia operativa.
-- **Clientes y distribuidores:** Garantiza disponibilidad y entregas oportunas.
+- Beneficia al área de logística y distribución, ya que facilita la planificación y despacho de pedidos.
+- A la empresa en general, al minimizar pérdidas por deterioro o vencimiento y mejorar la eficiencia operativa.
+- A los clientes y distribuidores, garantizando disponibilidad y entregas oportunas.
 
 ## ¿Qué resultado genera su módulo? ¿Es un producto o un servicio? ¿Qué características tiene?
 
-- El módulo genera un **servicio de almacenamiento y gestión de stock** de productos terminados.
+El módulo genera un **servicio de almacenamiento y gestión de stock** de productos terminados.
 
-### Características:
+**Características:**
 - Control de inventario en tiempo real.
 - Optimización del espacio de almacenamiento.
 - Manejo de lotes y fechas de vencimiento para asegurar la rotación adecuada.
@@ -23,15 +24,15 @@ El objetivo del módulo de almacén de productos terminados es garantizar el alm
 
 - **Infraestructura:** racks, estanterías, cámaras de conservación (si es necesario), zonas de carga y descarga.
 - **Equipamiento:** montacargas, paletas, cintas transportadoras.
-- **Software de gestión de almacenes (WMS):** para el control de stock y trazabilidad.
-- **Personal especializado** en almacenamiento y logística.
+- **Software:** sistema de gestión de almacenes (WMS) para el control de stock y trazabilidad.
+- **Personal:** especializado en almacenamiento y logística.
 
 ## ¿Cómo se planifica el uso de estos recursos?
 
 - Se establecen zonas de almacenamiento según rotación de productos y demanda.
-- Se implementa el método FIFO para evitar vencimientos.
+- Se implementa el método **FIFO** para evitar vencimientos.
 - Se programan ingresos y despachos de productos en función de la demanda y pedidos de clientes.
-- Se utiliza software WMS para optimizar la gestión de inventarios y evitar desabastecimientos o sobrestocks.
+- Se utiliza **kardex** para optimizar la gestión de inventarios y evitar desabastecimientos o sobrestocks.
 
 ## ¿Cómo se reserva el uso / la propiedad del producto o servicio generado?
 
