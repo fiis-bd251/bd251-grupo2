@@ -41,37 +41,37 @@ DROP TABLE IF EXISTS SolicitudesAbastecimiento CASCADE;
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_vehiculo_enum;
 END $$;
-CREATE TYPE estado_vehiculo_enum AS ENUM ('A', 'I');
+CREATE TYPE estado_vehiculo_enum AS ENUM ('Activo', 'Inactivo');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS tipo_cobertura_enum;
 END $$;
-CREATE TYPE tipo_cobertura_enum AS ENUM ('R', 'I', 'N');
+CREATE TYPE tipo_cobertura_enum AS ENUM ('Regional', 'Interprovincial', 'Nacional');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS tipo_servicio_enum;
 END $$;
-CREATE TYPE tipo_servicio_enum AS ENUM ('P', 'T');
+CREATE TYPE tipo_servicio_enum AS ENUM ('Propio', 'Tercerizado');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS motivo_traslado_enum;
 END $$;
-CREATE TYPE motivo_traslado_enum AS ENUM ('V', 'D');
+CREATE TYPE motivo_traslado_enum AS ENUM ('Venta', 'Devolucion');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_entrega_enum;
 END $$;
-CREATE TYPE estado_entrega_enum AS ENUM ('P', 'C', 'R');
+CREATE TYPE estado_entrega_enum AS ENUM ('Pendiente', 'Conforme', 'Rechazado');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_orden_carga_enum;
 END $$;
-CREATE TYPE estado_orden_carga_enum AS ENUM ('SP', 'PL', 'TR', 'IN', 'FN');
+CREATE TYPE estado_orden_carga_enum AS ENUM ('En espera', 'Picking listo', 'En transito', 'Incidencia', 'Finalizado');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS motivo_despacho_enum;
 END $$;
-CREATE TYPE motivo_despacho_enum AS ENUM ('E', 'R');
+CREATE TYPE motivo_despacho_enum AS ENUM ('Entrega', 'Reposicion');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS unidad_medida_enum ;
