@@ -1,11 +1,14 @@
-INSERT INTO Tipo_Unidad (CODIGO, DESCRIPCION) VALUES
+
+-- Poblacion de tablas - Moulo de Distribucion 
+
+INSERT INTO TiposUnidad (CODIGO, DESCRIPCION) VALUES
 ('CAMN', 'Camión'),
 ('FURG', 'Furgoneta'),
 ('MNVN', 'Miniván'),
 ('CMNT', 'Camioneta'),
 ('TRLR', 'Tráiler');
 
-INSERT INTO Tipos_Incidencia (CODIGO, DESCRIPCION) VALUES
+INSERT INTO TiposIncidencia (CODIGO, DESCRIPCION) VALUES
 ('ED', 'Empaques dañados'),
 ('FE', 'Faltan empaques'),
 ('PD', 'Producto deteriorado'),
@@ -64,7 +67,7 @@ insert into Personas (id_persona, dni, nombre, ap_paterno, ap_materno, direccion
 (49, '50593842', 'Carlos', 'Ortega', 'Ríos', 'Av. Arequipa 890', '1991-08-03'),
 (50, '17560374', 'Diego', 'Ortega', 'Reyes', 'Jr. de la Unión 521', '2002-03-31');
 
-insert into Telefonos_persona (id_persona, telefono) values 
+insert into TelefonosPersona (id_persona, telefono) values 
 (1, '985124573'),
 (2, '974678907'),
 (3, '919228617'),
@@ -116,7 +119,7 @@ insert into Telefonos_persona (id_persona, telefono) values
 (49, '989648143'),
 (50, '963368693');
 
-insert into Correos_persona (id_persona, correo) values 
+insert into CorreosPersona (id_persona, correo) values 
 (1, 'laura.perez50@yahoo.com'),
 (2, 'eduardo.flores91@hotmail.com'),
 (3, 'luis.ortega53@yahoo.com'),
@@ -2044,16 +2047,73 @@ insert into Ubigeos (id_ubigeo, departamento, provincia, distrito) values
 ('250305', 'Alexander von Humboldt', 'Padre Abad', 'Ucayali'),
 ('250401', 'Purus', 'Purus', 'Ucayali');
 
-insert into Pedidos_cliente (id_pedido_cliente) values   -- Temporal, posteriormente se agregarán más atributos
+insert into PedidosCliente (id_pedido_cliente) values   -- Temporal, posteriormente se agregarán más atributos
 (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12), (13), (14), (15), (16), (17), (18), (19), (20), (21), (22), (23), (24), (25),
 (26), (27), (28), (29), (30), (31), (32), (33), (34), (35), (36), (37), (38), (39), (40), (41), (42), (43), (44), (45), (46), (47), (48), (49), (50),
 (51), (52), (53), (54), (55), (56), (57), (58), (59), (60), (61), (62), (63), (64), (65), (66), (67), (68), (69), (70), (71), (72), (73), (74), (75),
 (76), (77), (78), (79), (80), (81), (82), (83), (84), (85), (86), (87), (88), (89), (90), (91), (92), (93), (94), (95), (96), (97), (98), (99), (100);
 
-insert into Empleados (id_empleado) values
-(1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12), (13), (14), (15), (16), (17), (18), (19), (20), (21), (22), (23), (24), (25),
-(26), (27), (28), (29), (30), (31), (32), (33), (34), (35), (36), (37), (38), (39), (40), (41), (42), (43), (44), (45), (46), (47), (48), (49), (50),
-(51), (52), (53), (54), (55), (56), (57), (58), (59), (60);
+INSERT INTO Empleados (id_empleado, codigo, estado_laboral) VALUES
+(1, 'E0001', 'Activo'),
+(2, 'E0002', 'Retirado'),
+(3, 'E0003', 'Activo'),
+(4, 'E0004', 'Retirado'),
+(5, 'E0005', 'Activo'),
+(6, 'E0006', 'Retirado'),
+(7, 'E0007', 'Activo'),
+(8, 'E0008', 'Retirado'),
+(9, 'E0009', 'Activo'),
+(10, 'E0010', 'Retirado'),
+(11, 'E0011', 'Activo'),
+(12, 'E0012', 'Retirado'),
+(13, 'E0013', 'Activo'),
+(14, 'E0014', 'Retirado'),
+(15, 'E0015', 'Activo'),
+(16, 'E0016', 'Retirado'),
+(17, 'E0017', 'Activo'),
+(18, 'E0018', 'Retirado'),
+(19, 'E0019', 'Activo'),
+(20, 'E0020', 'Retirado'),
+(21, 'E0021', 'Activo'),
+(22, 'E0022', 'Retirado'),
+(23, 'E0023', 'Activo'),
+(24, 'E0024', 'Retirado'),
+(25, 'E0025', 'Activo'),
+(26, 'E0026', 'Retirado'),
+(27, 'E0027', 'Activo'),
+(28, 'E0028', 'Retirado'),
+(29, 'E0029', 'Activo'),
+(30, 'E0030', 'Retirado'),
+(31, 'E0031', 'Activo'),
+(32, 'E0032', 'Retirado'),
+(33, 'E0033', 'Activo'),
+(34, 'E0034', 'Retirado'),
+(35, 'E0035', 'Activo'),
+(36, 'E0036', 'Retirado'),
+(37, 'E0037', 'Activo'),
+(38, 'E0038', 'Retirado'),
+(39, 'E0039', 'Activo'),
+(40, 'E0040', 'Retirado'),
+(41, 'E0041', 'Activo'),
+(42, 'E0042', 'Retirado'),
+(43, 'E0043', 'Activo'),
+(44, 'E0044', 'Retirado'),
+(45, 'E0045', 'Activo'),
+(46, 'E0046', 'Retirado'),
+(47, 'E0047', 'Activo'),
+(48, 'E0048', 'Retirado'),
+(49, 'E0049', 'Activo'),
+(50, 'E0050', 'Retirado'),
+(51, 'E0051', 'Activo'),
+(52, 'E0052', 'Retirado'),
+(53, 'E0053', 'Activo'),
+(54, 'E0054', 'Retirado'),
+(55, 'E0055', 'Activo'),
+(56, 'E0056', 'Retirado'),
+(57, 'E0057', 'Activo'),
+(58, 'E0058', 'Retirado'),
+(59, 'E0059', 'Activo'),
+(60, 'E0060', 'Retirado');
 
 insert into Empresas (id_empresa, codigo_ruc, razon_social, nombre_comercial, direccion, ubigeo_direccion) values
 (1, '20109072177', 'CENCOSUD RETAIL PERU S.A.', 'Cencosud Perú', 'Calle Augusto Angulo Nro. 130, Urb. San Antonio, Miraflores, Lima', '150122'), -- Cliente Retail
@@ -2072,7 +2132,7 @@ insert into Empresas (id_empresa, codigo_ruc, razon_social, nombre_comercial, di
 (14, '20523345601', 'TRANSPORTES CALLAO EXPRESS S.A.C.', 'Callao Express', 'Av. Argentina 456, Callao', '070101'), -- Transporte
 (15, '20579834755', 'ENVASES DEL PACIFICO S.A.', 'Envasur', 'Av. Industrial 2345, Lurín, Lima', '150123'); -- Proveedor
 
-insert into Telefonos_empresa (id_empresa, telefono) values
+insert into TelefonosEmpresa (id_empresa, telefono) values
 (1, '974332882'),
 (2, '928950179'),
 (3, '939136505'),
@@ -2100,7 +2160,7 @@ insert into Vehiculos (num_placa, tipo_unidad, estado, capac_peso, capac_emp) va
 ('CGV-287', 'MNVN', 'A', 25, 15),
 ('HKQ-694', 'CAMN', 'A', 45, 20);
 
-insert into Empresas_transporte (id_empresa, tipo_cobertura, descripcion) values
+insert into EmpresasTransporte (id_empresa, tipo_cobertura, descripcion) values
 (6, 'R', 'AYACUCHO'),
 (9, 'N', 'TODO EL PAÍS'),
 (10, 'N', 'TODO EL PAÍS'),
@@ -2108,7 +2168,7 @@ insert into Empresas_transporte (id_empresa, tipo_cobertura, descripcion) values
 (13, 'N', 'TODO EL PAÍS'),
 (14, 'I', 'AYACUCHO-AREQUIPA-CUSCO');
 
-insert into Transportistas (id_persona, id_empresa, num_licencia, tipo_servicio) values
+insert into Transportistas (id_transportista, id_empresa, num_licencia, tipo_servicio) values
 (21, 9, '355565648', 'P'),
 (22, 6, '516806967', 'P'),
 (23, 13, '281588881', 'T'),
@@ -2130,7 +2190,7 @@ insert into Transportistas (id_persona, id_empresa, num_licencia, tipo_servicio)
 (39, 6, '831073394', 'P'),
 (40, 13, '658497039', 'T');
 
-insert into Programaciones_despacho (id_transportista, id_vehiculo, id_empleado, codigo, fecha_prog_salida, hora_prog_salida, fecha_programacion) values
+insert into ProgramacionesDespacho (id_transportista, id_vehiculo, id_empleado, codigo, fecha_prog_salida, hora_prog_salida, fecha_programacion) values
 (29, 4, 9, 'PD000001', '2025-04-23', '22:30:00', '2025-04-21'),
 (39, 2, 14, 'PD000002', '2025-04-03', '12:00:00', '2025-03-31'),
 (28, 6, 5, 'PD000003', '2025-05-01', '21:30:00', '2025-04-30'),
@@ -2192,7 +2252,7 @@ insert into Programaciones_despacho (id_transportista, id_vehiculo, id_empleado,
 (27, 2, 2, 'PD000059', '2025-04-21', '17:00:00', '2025-04-17'),
 (27, 1, 6, 'PD000060', '2025-04-21', '14:45:00', '2025-04-16');
 
-insert into Ordenes_carga (id_prog_desp, codigo, fecha_salida, hora_salida, estado) values
+insert into OrdenesCarga (id_prog_desp, codigo, fecha_salida, hora_salida, estado) values
 (1, 'OC000001', '2025-04-30', '21:45:00', 'FN'),
 (2, 'OC000002', '2025-04-27', '11:30:00', 'TR'),
 (3, 'OC000003', '2025-04-30', '08:30:00', 'FN'),
@@ -2254,7 +2314,7 @@ insert into Ordenes_carga (id_prog_desp, codigo, fecha_salida, hora_salida, esta
 (59, 'OC000059', '2025-04-28', '17:30:00', 'FN'),
 (60, 'OC000060', '2025-04-30', '20:45:00', 'FN');
 
-insert into Pedidos_despacho (id_prog_desp, id_pedido_cliente, motivo_despacho) values
+insert into PedidosDespacho (id_prog_desp, id_pedido_cliente, motivo_despacho) values
 (1, 1, 'R'),
 (1, 2, 'E'),
 (2, 3, 'E'),
@@ -2344,7 +2404,7 @@ insert into Pedidos_despacho (id_prog_desp, id_pedido_cliente, motivo_despacho) 
 (59, 87, 'E'),
 (60, 88, 'R');
 
-insert into Registros_entrega (id_orden_carga, id_pedido_cliente, estado_entrega, fecha_entrega, hora_entrega) values
+insert into RegistrosEntrega (id_orden_carga, id_pedido_cliente, estado_entrega, fecha_entrega, hora_entrega) values
 (1, 1, 'C', '2025-04-25', '14:45:00'),
 (1, 2, 'R', '2025-04-25', '12:00:00'),
 (2, 3, 'R', '2025-04-29', '20:00:00'),
@@ -2434,68 +2494,471 @@ insert into Registros_entrega (id_orden_carga, id_pedido_cliente, estado_entrega
 (59, 87, 'R', '2025-04-29', '16:15:00'),
 (60, 88, 'C', '2025-04-28', '18:00:00');
 
-insert into Guias_remision (id_reg_ent, num_guia, motivo_traslado, fecha_emision, origen_direccion, ubigeo_origen, destino_direccion, ubigeo_destino) values
-(1, '1376226005471', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(2, '5625629530759', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(2, '5637640614368', 'D', '2025-04-29', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(3, '8622330924007', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(3, '2302313138740', 'D', '2025-04-29', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(4, '4133004822426', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(5, '9583268842507', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(6, '3612990146111', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(7, '4180149266755', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(8, '2898446251836', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(10, '1009666907598', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(11, '4733568515162', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(13, '1514481547497', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(15, '1788913839162', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(15, '1097795882963', 'D', '2025-04-28', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(17, '3417698393801', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(18, '1107136299695', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(18, '8124749846919', 'D', '2025-04-30', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(19, '7315376802229', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(19, '5294159942493', 'D', '2025-04-28', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(21, '8372142460086', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(21, '3569612024905', 'D', '2025-04-28', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(22, '9958079904000', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(25, '7821317801753', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(25, '3948826559247', 'D', '2025-04-29', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(26, '7873738432372', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(26, '8968930550362', 'D', '2025-04-29', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(27, '3929732757374', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(27, '5085320606973', 'D', '2025-04-30', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(28, '5605202333970', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(29, '2078833789563', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(29, '6426901574966', 'D', '2025-04-29', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(30, '5583971265653', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(30, '9560500580464', 'D', '2025-04-29', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(32, '4977354642115', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(33, '2716517819340', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(34, '2175854775626', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(35, '7220131799099', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(36, '7465705688294', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(37, '1057728902763', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(39, '6118079716835', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(45, '6197725175611', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(46, '7416915680384', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(46, '4450442413597', 'D', '2025-04-30', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(47, '6777477989339', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(48, '9164788905760', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(49, '7036260718359', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(49, '6667887045527', 'D', '2025-04-30', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(50, '6293258267220', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(50, '2263032972458', 'D', '2025-04-30', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(51, '6154461531505', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(52, '4307854533131', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(54, '6632881326665', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(55, '2167742126581', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(56, '1638108876308', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(56, '2299069869785', 'D', '2025-04-30', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(57, '3121553402807', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Amazonas 345, Cliente X', '150101'),
-(57, '2934013051360', 'D', '2025-04-28', 'Av. Amazonas 345, Cliente X', '150101', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101'),
-(58, '6504252274910', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(59, '1454881861219', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(60, '8937129032960', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(61, '1076351232384', 'V', '2025-04-28', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(62, '2495382084537', 'V', '2025-04-30', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, Ayacucho', '050101', 'Av. Los Incas 456, Distrito Cliente', '150101'),
-(63, '1990052110801', 'V', '2025-04-29', 'Jr 24 de Junio 173, San Juan Bautista, Huamanga, A
+insert into GuiasRemision (id_reg_ent, num_guia, motivo_traslado, fecha_emision, origen_direccion, ubigeo_origen, destino_direccion, ubigeo_destino) values
+(1, '1376226005471', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(2, '5625629530759', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(2, '5637640614368', 'D', '2025-04-29', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(3, '8622330924007', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Arequipa 1234', '150101'),
+(3, '2302313138740', 'D', '2025-04-30', 'Av. Arequipa 1234', '150101', 'Jr 24 de Junio 173', '050101'),
+(4, '4133004822426', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(5, '9583268842507', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(6, '3612990146111', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(7, '4180149266755', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(8, '2898446251836', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(10, '1009666907598', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(11, '4733568515162', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(13, '1514481547497', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(15, '1788913839162', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(15, '1097795882963', 'D', '2025-04-28', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(17, '3417698393801', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(18, '1107136299695', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(18, '8124749846919', 'D', '2025-04-30', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(19, '7315376802229', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(19, '5294159942493', 'D', '2025-04-28', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(21, '8372142460086', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(21, '3569612024905', 'D', '2025-04-28', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(22, '9958079904000', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(25, '7821317801753', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(25, '3948826559247', 'D', '2025-04-29', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(26, '7873738432372', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(26, '8968930550362', 'D', '2025-04-29', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(27, '3929732757374', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(27, '5085320606973', 'D', '2025-04-30', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(28, '5605202333970', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(29, '2078833789563', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(29, '6426901574966', 'D', '2025-04-29', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(30, '5583971265653', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(30, '9560500580464', 'D', '2025-04-29', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(32, '4977354642115', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(33, '2716517819340', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(34, '2175854775626', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(35, '7220131799099', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(36, '7465705688294', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(37, '1057728902763', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(39, '6118079716835', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(45, '6197725175611', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(46, '7416915680384', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(46, '4450442413597', 'D', '2025-04-30', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(47, '6777477989339', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(48, '9164788905760', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(49, '7036260718359', 'V', '2025-04-29', 'Jr 24 de Junio 173', '050101', 'Av. Camino Real 456', '150133'),
+(49, '6667887045527', 'D', '2025-04-30', 'Av. Camino Real 456', '150133', 'Jr 24 de Junio 173', '050101'),
+(50, '6293258267220', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(50, '2263032972458', 'D', '2025-04-30', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(51, '6154461531505', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(52, '4307854533131', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(54, '6632881326665', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(55, '2167742126581', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(56, '1638108876308', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Amazonas 345', '150101'),
+(56, '2299069869785', 'D', '2025-04-30', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
+(57, '3121553402807', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Jardines 456', '150132'),
+(57, '2934013051360', 'D', '2025-04-30', 'Av. Los Jardines 456', '150132', 'Jr 24 de Junio 173', '050101'),
+(58, '6504252274910', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(59, '1454881861219', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(60, '8937129032960', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(61, '1076351232384', 'V', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101'),
+(62, '2495382084537', 'V', '2025-04-30', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101');
+
+-- Poblacion de tablas - Almacen de insumos
+INSERT INTO Insumos (codigo_insumo, nombre_insumo, unidad_medida, tipo_insumo) VALUES
+('INS001', 'Harina de trigo', 'Kg', 'Materia Prima'),
+('INS002', 'Sémola de trigo', 'Kg', 'Materia Prima'),
+('INS003', 'Agua purificada', 'Unidad', 'Materia Prima'),
+('INS004', 'Sal marina', 'Kg', 'Aditivos'),
+('INS005', 'Aceite vegetal', 'Unidad', 'Aditivos'),
+('INS006', 'Colorante natural', 'Kg', 'Aditivos'),
+('INS007', 'Conservante alimenticio', 'Kg', 'Aditivos'),
+('INS008', 'Caja cartón 500g', 'Unidad', 'Material Empaque'),
+('INS009', 'Caja cartón 1kg', 'Unidad', 'Material Empaque'),
+('INS010', 'Film plástico', 'Kg', 'Material Empaque'),
+('INS011', 'Bandejas plásticas', 'Unidad', 'Material Empaque'),
+('INS012', 'Etiqueta adhesiva', 'Unidad', 'Material Empaque'),
+('INS013', 'Tinta impresión', 'Kg', 'Aditivos'),
+('INS014', 'Envase secundario', 'Cajas', 'Material Empaque'),
+('INS015', 'Pallet de madera', 'Unidad', 'Material Empaque');
+ 
+INSERT INTO Productos (id_producto) VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7),
+(8),
+(9),
+(10);
+
+INSERT INTO Formulaciones (id_producto, Codigo_formulacion, Nombre_formulacion, fecha_creacion) VALUES
+(1, 'FOR001', 'Fideos largos estándar', '2024-01-15'),
+(2, 'FOR002', 'Fideos cortos con sémola', '2024-01-20'),
+(3, 'FOR003', 'Pasta integral', '2024-02-01'),
+(4, 'FOR004', 'Fideos con huevo', '2024-02-10'),
+(5, 'FOR005', 'Ravioles rellenos', '2024-02-18'),
+(6, 'FOR006', 'Ñoquis tradicionales', '2024-03-05'),
+(7, 'FOR007', 'Pasta sin gluten', '2024-03-15'),
+(8, 'FOR008', 'Fideos sabor espinaca', '2024-03-25'),
+(9, 'FOR009', 'Pasta con tomate deshidratado', '2024-04-01'),
+(10, 'FOR010', 'Tallarines gourmet', '2024-04-10');
+
+INSERT INTO DetallesFormulacion (id_formulacion, id_insumo, cantidad_asignada) VALUES
+-- Formulación 1: Fideos largos estándar
+(1, 1, 100),  -- Harina de trigo
+(1, 3, 2),    -- Sal
+(1, 6, 3),    -- Agua
+
+-- Formulación 2: Fideos cortos con sémola
+(2, 2, 120),  -- Sémola de trigo
+(2, 3, 2),    -- Sal
+(2, 6, 3),    -- Agua
+
+-- Formulación 3: Pasta integral
+(3, 4, 100),  -- Harina integral
+(3, 3, 2),
+(3, 6, 3),
+
+-- Formulación 4: Fideos con huevo
+(4, 1, 80),   -- Harina de trigo
+(4, 5, 5),    -- Huevo en polvo
+(4, 3, 1),
+(4, 6, 2),
+
+-- Formulación 5: Ravioles rellenos
+(5, 1, 90),
+(5, 5, 6),
+(5, 3, 1),
+(5, 6, 3),
+
+-- Formulación 6: Ñoquis tradicionales
+(6, 1, 70),
+(6, 7, 50),   -- Puré de papa deshidratado
+(6, 5, 3),
+(6, 3, 1),
+
+-- Formulación 7: Pasta sin gluten
+(7, 8, 100),  -- Harina de arroz
+(7, 9, 20),   -- Harina de maíz
+(7, 3, 1),
+(7, 6, 3),
+
+-- Formulación 8: Fideos sabor espinaca
+(8, 1, 85),
+(8, 10, 10),  -- Polvo de espinaca
+(8, 3, 1),
+(8, 6, 2),
+
+-- Formulación 9: Pasta con tomate deshidratado
+(9, 1, 85),
+(9, 11, 10),  -- Tomate deshidratado
+(9, 3, 1),
+(9, 6, 2),
+
+-- Formulación 10: Tallarines gourmet
+(10, 1, 90),
+(10, 5, 5),
+(10, 12, 2),  -- Aceite vegetal
+(10, 3, 1),
+(10, 6, 2);
+
+INSERT INTO Ubicaciones (zoma, Estanteria, Nivel) VALUES
+('Zona A', 'Estantería 1', 'Nivel 1'),
+('Zona A', 'Estantería 1', 'Nivel 2'),
+('Zona A', 'Estantería 1', 'Nivel 3'),
+('Zona A', 'Estantería 2', 'Nivel 1'),
+('Zona A', 'Estantería 2', 'Nivel 2'),
+('Zona A', 'Estantería 2', 'Nivel 3'),
+('Zona B', 'Estantería 1', 'Nivel 1'),
+('Zona B', 'Estantería 1', 'Nivel 2'),
+('Zona B', 'Estantería 1', 'Nivel 3'),
+('Zona B', 'Estantería 2', 'Nivel 1'),
+('Zona B', 'Estantería 2', 'Nivel 2'),
+('Zona B', 'Estantería 2', 'Nivel 3'),
+('Zona C', 'Estantería 1', 'Nivel 1'),
+('Zona C', 'Estantería 1', 'Nivel 2'),
+('Zona C', 'Estantería 1', 'Nivel 3'),
+('Zona C', 'Estantería 2', 'Nivel 1'),
+('Zona C', 'Estantería 2', 'Nivel 2'),
+('Zona C', 'Estantería 2', 'Nivel 3'),
+('Zona D', 'Estantería 1', 'Nivel 1'),
+('Zona D', 'Estantería 1', 'Nivel 2'),
+('Zona D', 'Estantería 1', 'Nivel 3'),
+('Zona D', 'Estantería 2', 'Nivel 1'),
+('Zona D', 'Estantería 2', 'Nivel 2'),
+('Zona D', 'Estantería 2', 'Nivel 3'),
+('Zona E', 'Estantería 1', 'Nivel 1'),
+('Zona E', 'Estantería 1', 'Nivel 2'),
+('Zona E', 'Estantería 1', 'Nivel 3'),
+('Zona E', 'Estantería 2', 'Nivel 1'),
+('Zona E', 'Estantería 2', 'Nivel 2'),
+('Zona E', 'Estantería 2', 'Nivel 3'),
+('Zona F', 'Estantería 1', 'Nivel 1'),
+('Zona F', 'Estantería 1', 'Nivel 2'),
+('Zona F', 'Estantería 1', 'Nivel 3'),
+('Zona F', 'Estantería 2', 'Nivel 1'),
+('Zona F', 'Estantería 2', 'Nivel 2'),
+('Zona F', 'Estantería 2', 'Nivel 3'),
+('Zona G', 'Estantería 1', 'Nivel 1'),
+('Zona G', 'Estantería 1', 'Nivel 2'),
+('Zona G', 'Estantería 2', 'Nivel 1'),
+('Zona G', 'Estantería 2', 'Nivel 2');
+
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+INSERT INTO Compras DEFAULT VALUES;
+
+INSERT INTO Recepciones (codigo_recepcion, fecha_llegada, estado, id_compra, id_empleado) VALUES
+('REC0001', '2025-04-01 08:00:00', 'En entrega', 1, 12),
+('REC0002', '2025-04-02 09:15:00', 'Proceso de Calidad', 2, 5),
+('REC0003', '2025-04-03 10:30:00', 'A recepcionar', 3, 18),
+('REC0004', '2025-04-04 11:45:00', 'En entrega', 4, 24),
+('REC0005', '2025-04-05 14:00:00', 'Proceso de Calidad', 5, 33),
+('REC0006', '2025-04-06 15:20:00', 'En entrega', 6, 7),
+('REC0007', '2025-04-07 16:10:00', 'A recepcionar', 7, 40),
+('REC0008', '2025-04-08 17:25:00', 'En entrega', 8, 22),
+('REC0009', '2025-04-09 08:10:00', 'Proceso de Calidad', 9, 3),
+('REC0010', '2025-04-10 09:45:00', 'En entrega', 10, 27),
+('REC0011', '2025-04-11 11:00:00', 'A recepcionar', 11, 16),
+('REC0012', '2025-04-12 13:15:00', 'Proceso de Calidad', 12, 38),
+('REC0013', '2025-04-13 14:30:00', 'En entrega', 13, 44),
+('REC0014', '2025-04-14 15:45:00', 'A recepcionar', 14, 2),
+('REC0015', '2025-04-15 17:00:00', 'Proceso de Calidad', 15, 59),
+('REC0016', '2025-04-16 08:20:00', 'En entrega', 16, 21),
+('REC0017', '2025-04-17 09:35:00', 'A recepcionar', 17, 35),
+('REC0018', '2025-04-18 10:50:00', 'Proceso de Calidad', 18, 49),
+('REC0019', '2025-04-19 12:05:00', 'En entrega', 19, 1),
+('REC0020', '2025-04-20 13:40:00', 'Proceso de Calidad', 20, 17),
+('REC0021', '2025-04-21 15:10:00', 'A recepcionar', 21, 9),
+('REC0022', '2025-04-22 16:25:00', 'En entrega', 22, 30),
+('REC0023', '2025-04-23 17:50:00', 'Proceso de Calidad', 23, 13),
+('REC0024', '2025-04-24 08:35:00', 'A recepcionar', 24, 50),
+('REC0025', '2025-04-25 10:05:00', 'En entrega', 25, 19);
+
+INSERT INTO LotesInsumo (codigo_lote, cantidad_recibida, cantidad_disponible, Fecha_vencimiento, id_insumo, id_recepcion, id_ubicacion) VALUES
+('LOTE0001', 174, 53, '2025-12-12', 14, 5, 31),
+('LOTE0002', 115, 80, '2025-09-07', 10, 11, 16),
+('LOTE0003', 142, 80, '2025-09-21', 14, 11, 4),
+('LOTE0004', 69, 13, '2025-08-07', 15, 11, 27),
+('LOTE0005', 60, 16, '2025-11-04', 11, 20, 39),
+('LOTE0006', 186, 48, '2025-12-02', 4, 3, 5),
+('LOTE0007', 187, 74, '2025-09-02', 1, 15, 22),
+('LOTE0008', 130, 34, '2025-10-03', 14, 6, 23),
+('LOTE0009', 102, 96, '2025-11-23', 9, 22, 27),
+('LOTE0010', 172, 152, '2026-02-16', 9, 22, 38),
+('LOTE0011', 56, 18, '2026-01-10', 3, 19, 11),
+('LOTE0012', 95, 78, '2025-08-29', 12, 19, 28),
+('LOTE0013', 108, 54, '2026-04-07', 9, 24, 32),
+('LOTE0014', 192, 35, '2025-08-20', 12, 1, 33),
+('LOTE0015', 141, 41, '2025-10-16', 14, 8, 24),
+('LOTE0016', 88, 88, '2025-11-10', 6, 8, 3),
+('LOTE0017', 119, 77, '2025-09-22', 2, 17, 8),
+('LOTE0018', 110, 56, '2026-01-13', 5, 14, 17),
+('LOTE0019', 100, 49, '2026-02-04', 1, 12, 30),
+('LOTE0020', 133, 60, '2025-10-30', 15, 12, 15),
+('LOTE0021', 75, 42, '2025-09-28', 13, 21, 36),
+('LOTE0022', 157, 122, '2025-12-18', 6, 16, 9),
+('LOTE0023', 183, 99, '2026-03-11', 10, 10, 10),
+('LOTE0024', 91, 50, '2025-11-09', 11, 13, 7),
+('LOTE0025', 149, 89, '2025-09-11', 8, 18, 18),
+('LOTE0026', 105, 61, '2026-01-30', 3, 7, 13),
+('LOTE0027', 134, 79, '2025-10-17', 2, 2, 2),
+('LOTE0028', 97, 54, '2025-08-25', 7, 23, 1),
+('LOTE0029', 163, 120, '2026-02-01', 5, 23, 26),
+('LOTE0030', 86, 86, '2025-12-28', 4, 4, 20),
+('LOTE0031', 174, 140, '2025-09-25', 1, 24, 6),
+('LOTE0032', 103, 98, '2025-11-06', 9, 9, 34),
+('LOTE0033', 158, 150, '2025-12-12', 6, 7, 21),
+('LOTE0034', 117, 60, '2026-02-22', 11, 6, 19),
+('LOTE0035', 130, 130, '2026-01-01', 12, 25, 25),
+('LOTE0036', 78, 66, '2025-10-14', 8, 1, 12),
+('LOTE0037', 189, 144, '2026-03-05', 13, 2, 29),
+('LOTE0038', 168, 100, '2025-12-29', 10, 3, 35),
+('LOTE0039', 122, 90, '2025-09-10', 2, 4, 37),
+('LOTE0040', 111, 84, '2026-01-19', 7, 5, 14),
+('LOTE0041', 93, 73, '2026-03-15', 4, 6, 40),
+('LOTE0042', 149, 110, '2025-10-08', 1, 7, 13),
+('LOTE0043', 107, 90, '2026-04-01', 15, 8, 31),
+('LOTE0044', 120, 90, '2026-02-05', 5, 9, 39),
+('LOTE0045', 90, 60, '2025-12-10', 6, 10, 36),
+('LOTE0046', 180, 140, '2025-11-18', 3, 11, 5),
+('LOTE0047', 145, 115, '2025-09-15', 12, 12, 11),
+('LOTE0048', 99, 88, '2026-01-28', 9, 13, 10),
+('LOTE0049', 133, 90, '2025-11-25', 14, 14, 28),
+('LOTE0050', 101, 50, '2026-03-07', 13, 15, 23),
+('LOTE0051', 176, 130, '2025-09-30', 8, 16, 6),
+('LOTE0052', 166, 130, '2026-04-08', 7, 17, 17),
+('LOTE0053', 114, 89, '2025-10-02', 10, 18, 22),
+('LOTE0054', 97, 84, '2026-01-14', 11, 19, 3),
+('LOTE0055', 128, 100, '2026-02-20', 4, 20, 7),
+('LOTE0056', 136, 110, '2025-12-05', 2, 21, 30),
+('LOTE0057', 154, 120, '2025-10-27', 6, 22, 8),
+('LOTE0058', 144, 118, '2026-03-18', 5, 23, 24),
+('LOTE0059', 112, 90, '2025-08-30', 3, 24, 16),
+('LOTE0060', 170, 140, '2025-11-11', 1, 25, 19);
+
+INSERT INTO OrdenesProduccion (id_orden_produccion) VALUES
+(1), (2), (3), (4), (5),
+(6), (7), (8), (9), (10),
+(11), (12), (13), (14), (15);
+
+INSERT INTO Abastecimientos (codigo_abastecimiento, fecha_abastecimiento, estado, id_empleado, id_orden_produccion) VALUES
+('AB001', '2025-04-01 08:30:00', 'atender', 5, 1),
+('AB002', '2025-04-01 10:00:00', 'Atendido', 12, 2),
+('AB003', '2025-04-02 09:15:00', 'atender', 7, 3),
+('AB004', '2025-04-02 14:45:00', 'Atendido', 19, 4),
+('AB005', '2025-04-03 11:30:00', 'Atendido', 23, 5),
+('AB006', '2025-04-04 07:50:00', 'atender', 8, 6),
+('AB007', '2025-04-04 12:20:00', 'Atendido', 17, 7),
+('AB008', '2025-04-05 09:40:00', 'atender', 3, 8),
+('AB009', '2025-04-05 15:10:00', 'Atendido', 41, 9),
+('AB010', '2025-04-06 10:30:00', 'atender', 30, 10),
+('AB011', '2025-04-07 08:00:00', 'Atendido', 44, 11),
+('AB012', '2025-04-07 11:15:00', 'atender', 25, 12),
+('AB013', '2025-04-08 14:10:00', 'Atendido', 59, 13),
+('AB014', '2025-04-09 13:00:00', 'atender', 36, 14),
+('AB015', '2025-04-10 09:55:00', 'Atendido', 11, 15);
+
+INSERT INTO InventariosAbastecimiento (id_abastecimiento, id_lote_insumo, cantidad_asignada) VALUES
+(1, 3, 50),
+(1, 7, 30),
+(1, 15, 20),
+
+(2, 4, 60),
+(2, 8, 40),
+
+(3, 1, 25),
+(3, 12, 50),
+(3, 18, 35),
+
+(4, 6, 40),
+(4, 10, 30),
+(4, 14, 25),
+
+(5, 5, 45),
+(5, 11, 35),
+
+(6, 2, 60),
+(6, 20, 40),
+
+(7, 22, 55),
+(7, 9, 30),
+
+(8, 13, 20),
+(8, 17, 40),
+(8, 25, 30),
+
+(9, 16, 40),
+(9, 19, 35),
+(9, 21, 20),
+
+(10, 23, 50),
+(10, 24, 30),
+
+(11, 26, 45),
+(11, 28, 35),
+
+(12, 27, 60),
+(12, 29, 40),
+(12, 30, 20),
+
+(13, 31, 35),
+(13, 32, 30),
+(13, 33, 20),
+
+(14, 34, 25),
+(14, 36, 45),
+
+(15, 35, 50),
+(15, 37, 30),
+(15, 38, 20),
+(15, 39, 25),
+(15, 40, 30),
+(15, 41, 20),
+(15, 42, 15),
+(15, 43, 10);
+
+INSERT INTO SolicitudesAbastecimiento (codigo_solicitud_abastecimiento, Fecha_solicitud_abastecimiento, id_empleado) VALUES
+('SOLAB001', '2024-01-12 08:30:00', 5),
+('SOLAB002', '2024-01-15 09:45:00', 12),
+('SOLAB003', '2024-01-20 10:00:00', 22),
+('SOLAB004', '2024-01-25 13:15:00', 8),
+('SOLAB005', '2024-02-01 07:50:00', 3),
+('SOLAB006', '2024-02-08 08:10:00', 16),
+('SOLAB007', '2024-02-14 09:00:00', 27),
+('SOLAB008', '2024-02-20 14:30:00', 31),
+('SOLAB009', '2024-02-27 10:45:00', 19),
+('SOLAB010', '2024-03-05 11:00:00', 44),
+('SOLAB011', '2024-03-10 08:20:00', 37),
+('SOLAB012', '2024-03-15 10:10:00', 50),
+('SOLAB013', '2024-03-20 07:40:00', 9),
+('SOLAB014', '2024-03-25 13:05:00', 14),
+('SOLAB015', '2024-03-30 12:00:00', 6),
+('SOLAB016', '2024-04-05 09:30:00', 23),
+('SOLAB017', '2024-04-10 08:55:00', 2),
+('SOLAB018', '2024-04-15 10:25:00', 58),
+('SOLAB019', '2024-04-20 07:45:00', 41),
+('SOLAB020', '2024-04-25 11:15:00', 13);
+
+INSERT INTO DetallesSolicitud (id_solicitud_abastecimiento, id_insumo, cantidad_requeridos) VALUES
+-- Solicitud 1
+(1, 1, 200), (1, 2, 150), (1, 3, 100),
+-- Solicitud 2
+(2, 1, 180), (2, 4, 120), (2, 5, 60),
+-- Solicitud 3
+(3, 2, 170), (3, 6, 90), (3, 7, 40),
+-- Solicitud 4
+(4, 8, 300), (4, 9, 50), (4, 10, 30),
+-- Solicitud 5
+(5, 11, 110), (5, 12, 85), (5, 13, 60),
+-- Solicitud 6
+(6, 14, 250), (6, 15, 190),
+-- Solicitud 7
+(7, 1, 200), (7, 3, 100), (7, 5, 80),
+-- Solicitud 8
+(8, 2, 120), (8, 4, 60), (8, 6, 90),
+-- Solicitud 9
+(9, 7, 50), (9, 9, 100), (9, 11, 70),
+-- Solicitud 10
+(10, 13, 60), (10, 14, 100), (10, 15, 150),
+-- Solicitud 11
+(11, 1, 120), (11, 5, 90), (11, 10, 40),
+-- Solicitud 12
+(12, 3, 140), (12, 6, 80), (12, 12, 60),
+-- Solicitud 13
+(13, 2, 130), (13, 4, 100), (13, 14, 90),
+-- Solicitud 14
+(14, 1, 180), (14, 11, 60), (14, 15, 40),
+-- Solicitud 15
+(15, 7, 90), (15, 8, 60), (15, 9, 110),
+-- Solicitud 16
+(16, 2, 140), (16, 3, 100), (16, 12, 70),
+-- Solicitud 17
+(17, 4, 100), (17, 6, 90), (17, 10, 50),
+-- Solicitud 18
+(18, 13, 80), (18, 14, 150),
+-- Solicitud 19
+(19, 5, 100), (19, 8, 70), (19, 15, 90),
+-- Solicitud 20
+(20, 1, 200), (20, 2, 180), (20, 3, 160);
+
