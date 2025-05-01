@@ -12,21 +12,6 @@ INSERT INTO Tipos_Incidencia (CODIGO, DESCRIPCION) VALUES
 ('PQ', 'Producto equivocado'),
 ('OT', 'Otro');
 
-INSERT INTO Tipo_Unidad (CODIGO, DESCRIPCION) VALUES
-('CAMN', 'Camión'),
-('FURG', 'Furgoneta'),
-('MNVN', 'Miniván'),
-('CMNT', 'Camioneta'),
-('TRLR', 'Tráiler');
-
-INSERT INTO Tipos_Incidencia (CODIGO, DESCRIPCION) VALUES
-('ED', 'Empaques dañados'),
-('FE', 'Faltan empaques'),
-('PD', 'Producto deteriorado'),
-('PQ', 'Producto equivocado'),
-('OT', 'Otro'),
-('NN', 'Ninguno');
-
 insert into Personas (id_persona, dni, nombre, ap_paterno, ap_materno, direccion, fecha_nac) values
 (1, '48590606', 'Laura', 'Pérez', 'Ramírez', 'Av. La Marina 519', '1996-07-21'),
 (2, '28416021', 'Eduardo', 'Flores', 'Sánchez', 'Jr. de la Unión 641', '2002-11-23'),
