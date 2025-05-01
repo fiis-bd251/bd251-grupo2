@@ -27,7 +27,6 @@ INSERT INTO Tipos_Incidencia (CODIGO, DESCRIPCION) VALUES
 ('OT', 'Otro'),
 ('NN', 'Ninguno');
 
-
 insert into Personas (id_persona, dni, nombre, ap_paterno, ap_materno, direccion, fecha_nac) values
 (1, '48590606', 'Laura', 'Pérez', 'Ramírez', 'Av. La Marina 519', '1996-07-21'),
 (2, '28416021', 'Eduardo', 'Flores', 'Sánchez', 'Jr. de la Unión 641', '2002-11-23'),
@@ -131,7 +130,6 @@ insert into Telefonos_persona (id_persona, telefono) values
 (48, '965088486'),
 (49, '989648143'),
 (50, '963368693');
-
 
 insert into Correos_persona (id_persona, correo) values 
 (1, 'laura.perez50@yahoo.com'),
@@ -2105,8 +2103,6 @@ insert into Telefonos_empresa (id_empresa, telefono) values
 (13, '935318192'),
 (14, '960582974'),
 (15, '929721493');
-
-
 
 insert into Vehiculos (num_placa, tipo_unidad, estado, capac_peso, capac_emp) values
 ('QCW-756', 'CMNT', 'A', 10, 10),
