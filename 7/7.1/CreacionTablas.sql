@@ -37,6 +37,13 @@ DROP TABLE IF EXISTS InventariosAbastecimiento CASCADE;
 DROP TABLE IF EXISTS DetallesSolicitud CASCADE;
 DROP TABLE IF EXISTS SolicitudesAbastecimiento CASCADE;
 
+DROP TABLE IF EXISTS SolicitudesProduccion CASCADE;
+DROP TABLE IF EXISTS OrdenesMantenimiento CASCADE;
+DROP TABLE IF EXISTS SolicitudesMantenimiento CASCADE;
+DROP TABLE IF EXISTS EjemplaresMaquina CASCADE;
+DROP TABLE IF EXISTS TiposMaquina CASCADE;
+DROP TABLE IF EXISTS InspeccionesProceso CASCADE;
+
 -- ENUMs
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_vehiculo_enum;
@@ -98,6 +105,36 @@ DO $$ BEGIN
 END $$;
 CREATE TYPE estado_laboral_enum AS ENUM ('Activo', 'Retirado');
 
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_ejemplar_enum CASCADE;
+END $$;
+CREATE TYPE estado_ejemplar_enum AS ENUM ('Operativo', 'En mantenimiento', 'Fuera de servicio');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS tipo_mantenimiento_enum CASCADE;
+END $$;
+CREATE TYPE tipo_mantenimiento_enum AS ENUM ('Preventivo', 'Correctivo');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS etapa_enum CASCADE;
+END $$;
+CREATE TYPE etapa_enum AS ENUM ('Dosificado', 'Mezclado', 'Moldeado', 'Secado', 'Envasado','Almacen');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_orden_enum CASCADE;
+END $$;
+CREATE TYPE estado_orden_enum AS ENUM ('En proceso', 'Completado', 'Con retraso');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_lote_enum CASCADE;
+END $$;
+CREATE TYPE estado_lote_enum AS ENUM ('En proceso', 'Completado', 'En inspeccion', 'Retirado');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_solicitud_enum CASCADE;
+END $$;
+CREATE TYPE estado_solicitud_enum AS ENUM ('Atendida', 'Con retraso', 'Pendiente');
+
 
 
 CREATE TABLE Empleados (
@@ -118,15 +155,6 @@ CREATE TABLE PedidosCliente (
     ID_PEDIDO_CLIENTE SERIAL PRIMARY KEY
 );
 
-CREATE TABLE LotesProducto (
-    ID_LOTE_PRODUCTO SERIAL PRIMARY KEY
-);
-
-CREATE TABLE OrdenesProduccion (
-   id_orden_produccion SERIAL PRIMARY KEY
-);
-
-
 --Tablas de AAlmacen de Insu,os 
 CREATE TABLE Insumos (
     id_insumo SERIAL PRIMARY KEY,
@@ -142,7 +170,7 @@ CREATE TABLE Formulaciones (
     Codigo_formulacion VARCHAR(29) UNIQUE not NULL, 
     Nombre_formulacion VARCHAR(100) not null,
     fecha_creacion DATE not null,
-     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 
 CREATE TABLE DetallesFormulacion (
@@ -173,6 +201,7 @@ CREATE TABLE Recepciones (
 );
 
 
+
 CREATE TABLE LotesInsumo (
     id_lote_insumo SERIAL PRIMARY KEY,
     codigo_lote VARCHAR(50) unique NOT null,
@@ -187,6 +216,32 @@ CREATE TABLE LotesInsumo (
     FOREIGN KEY (id_ubicacion) REFERENCES Ubicaciones(id_ubicacion)
 );
 
+CREATE TABLE SolicitudesProduccion (
+    id_solicitud_produccion SERIAL PRIMARY KEY,
+    cod_solicitud_produccion VARCHAR(10) UNIQUE NOT NULL,
+    cantidad_requerida INT NOT NULL,
+    fecha_requerida DATE NOT NULL,
+    fecha_solicitud DATE NOT NULL,
+    hora_solicitud TIME NOT NULL,
+    estado estado_solicitud_enum NOT NULL,
+    id_producto INT ,
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+
+
+CREATE TABLE OrdenesProduccion (
+    id_orden_produccion SERIAL PRIMARY KEY,
+    cod_orden_produccion VARCHAR(10) UNIQUE NOT NULL,
+    fecha_emision DATE NOT NULL,
+    hora_emision TIME NOT NULL,
+    fecha_fin_estimada DATE NOT NULL,
+    fecha_finalizacion DATE,
+    estado estado_orden_enum NOT NULL,
+    id_solicitud_produccion INT ,
+    id_empleado INT NOT NULL,
+    FOREIGN KEY (id_solicitud_produccion) REFERENCES SolicitudesProduccion(id_solicitud_produccion),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
 
 CREATE TABLE Abastecimientos (
     id_abastecimiento SERIAL PRIMARY key,
@@ -330,6 +385,7 @@ CREATE TABLE ProgramacionesDespacho (
     FOREIGN KEY (ID_EMPLEADO) REFERENCES Empleados(ID_EMPLEADO)
 );
 
+
 CREATE TABLE OrdenesCarga (
     ID_ORDEN_CARGA SERIAL PRIMARY KEY,
     ID_PROG_DESP INT NOT NULL,
@@ -340,6 +396,7 @@ CREATE TABLE OrdenesCarga (
 
     FOREIGN KEY (ID_PROG_DESP) REFERENCES ProgramacionesDespacho(ID_PROG_DESP)
 );
+
 
 CREATE TABLE PedidosDespacho (
     ID_PROG_DESP INT NOT NULL,
@@ -379,6 +436,19 @@ CREATE TABLE GuiasRemision (
     FOREIGN KEY (UBIGEO_DESTINO) REFERENCES Ubigeos(ID_UBIGEO)
 );
 
+CREATE TABLE LotesProducto (
+    id_lote_producto SERIAL PRIMARY KEY,
+    cod_lote_producto VARCHAR(10) UNIQUE NOT NULL,
+    cantidad_producida INT NOT NULL,
+    fecha_creacion DATE NOT NULL,
+    hora_creacion TIME NOT NULL,
+    estado estado_lote_enum NOT NULL,
+    fecha_vencimiento DATE,
+    etapa_produccion etapa_enum NOT NULL,
+    id_orden_produccion INT NOT NULL,
+    FOREIGN KEY (id_orden_produccion) REFERENCES OrdenesProduccion(id_orden_produccion)
+);
+
 CREATE TABLE DetallesEntrega (
     ID_REG_ENT INT NOT NULL,
     ID_LOTE_PRODUCTO INT NOT NULL,
@@ -392,4 +462,57 @@ CREATE TABLE DetallesEntrega (
     FOREIGN KEY (ID_LOTE_PRODUCTO) REFERENCES LotesProducto(ID_LOTE_PRODUCTO),
     FOREIGN KEY (TIPO_INCIDENCIA) REFERENCES TiposIncidencia(CODIGO)
     
+);
+
+CREATE TABLE InspeccionesProceso (
+    id_inspeccion_proceso SERIAL PRIMARY KEY
+);
+
+
+CREATE TABLE TiposMaquina (
+    id_tipo_maquina SERIAL PRIMARY KEY,
+    cod_tipo_maquina VARCHAR(10) UNIQUE NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    marca VARCHAR(50),
+    modelo VARCHAR(50),
+    etapa_produccion etapa_enum NOT NULL
+);
+
+CREATE TABLE EjemplaresMaquina (
+    id_ejemplar_maquina SERIAL PRIMARY KEY,
+    cod_ejemplar_maquina VARCHAR(10) UNIQUE NOT NULL,
+    fecha_instalacion DATE,
+    estado estado_ejemplar_enum NOT NULL,
+    fecha_ultimo_mantenimiento DATE,
+    plan_mantenimiento INT NOT NULL,
+    id_tipo_maquina INT NOT NULL ,
+ 	FOREIGN KEY (id_tipo_maquina) REFERENCES TiposMaquina(id_tipo_maquina)
+);
+
+CREATE TABLE SolicitudesMantenimiento(
+    id_solicitud_mantenimiento SERIAL PRIMARY KEY,
+    cod_solicitud_mantenimiento VARCHAR(10) UNIQUE NOT NULL,
+    fecha_solicitud DATE,
+    hora_solicitud TIME,
+    fecha_requerida DATE,
+    tipo_mantenimiento tipo_mantenimiento_enum NOT NULL,
+    estado estado_solicitud_enum NOT NULL,
+    id_ejemplar_maquina INT NOT NULL ,
+    id_inspeccion_proceso INT NOT NULL,
+	FOREIGN KEY (id_ejemplar_maquina) REFERENCES EjemplaresMaquina(id_ejemplar_maquina),
+	FOREIGN KEY (id_inspeccion_proceso) REFERENCES InspeccionesProceso(id_inspeccion_proceso)
+);
+
+CREATE TABLE OrdenesMantenimiento (
+    id_orden_mantenimiento SERIAL PRIMARY KEY,
+    cod_orden_mantenimiento VARCHAR(10) UNIQUE NOT NULL,
+    fecha_emision DATE,
+    hora_emision TIME,
+    fecha_fin_estimada DATE,
+    fecha_finalizacion DATE,
+    estado estado_orden_enum NOT NULL,
+    id_empleado INT NOT NULL,
+    id_solicitud_mantenimiento INT,
+    FOREIGN KEY (id_solicitud_mantenimiento) REFERENCES SolicitudesMantenimiento(id_solicitud_mantenimiento),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
