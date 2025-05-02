@@ -44,6 +44,15 @@ DROP TABLE IF EXISTS EjemplaresMaquina CASCADE;
 DROP TABLE IF EXISTS TiposMaquina CASCADE;
 DROP TABLE IF EXISTS InspeccionesProceso CASCADE;
 
+DROP TABLE IF EXISTS Envasados CASCADE;
+DROP TABLE IF EXISTS Secados CASCADE;
+DROP TABLE IF EXISTS Moldeados CASCADE;
+DROP TABLE IF EXISTS TiposBoquilla CASCADE;
+DROP TABLE IF EXISTS Mezclados CASCADE;
+DROP TABLE IF EXISTS ProcesosRecurrente CASCADE;
+DROP TABLE IF EXISTS DosificadosXLotesinsumo CASCADE;
+DROP TABLE IF EXISTS Dosificados CASCADE;
+
 -- ENUMs
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_vehiculo_enum;
@@ -135,6 +144,10 @@ DO $$ BEGIN
 END $$;
 CREATE TYPE estado_solicitud_enum AS ENUM ('Atendida', 'Con retraso', 'Pendiente');
 
+DO $$ BEGIN
+    DROP TYPE IF EXISTS tipo_envase_enum CASCADE;
+END $$;
+CREATE TYPE tipo_envase_enum AS ENUM ('Bolsa de plastico', 'Caja de carton');
 
 
 CREATE TABLE Empleados (
@@ -515,4 +528,105 @@ CREATE TABLE OrdenesMantenimiento (
     id_solicitud_mantenimiento INT,
     FOREIGN KEY (id_solicitud_mantenimiento) REFERENCES SolicitudesMantenimiento(id_solicitud_mantenimiento),
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+
+-- Tablas Modulo Proceso Produccion
+CREATE TABLE Dosificados (
+    id_dosificado SERIAL PRIMARY KEY,
+    cod_dosificado VARCHAR(8) UNIQUE NOT NULL,
+    numero_batch NUMERIC(2) CHECK (numero_batch > 0),
+    fecha_proceso TIMESTAMP NOT NULL,
+    tiempo_proceso NUMERIC(3) CHECK (tiempo_proceso > 0),
+    estado estado_lote_enum NOT NULL,
+    id_lote_producto INT NOT NULL,
+    id_empleado INT NOT NULL,
+    FOREIGN KEY (id_lote_producto) REFERENCES LotesProducto(id_lote_producto),
+	FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+CREATE TABLE DosificadosXLotesInsumo (
+    id_dosificado INT NOT NULL,
+	id_lote_insumo INT NOT NULL,
+    cantidad_dosificada NUMERIC(4,1) CHECK (cantidad_dosificada > 0),
+    
+    PRIMARY KEY (id_dosificado, id_lote_insumo),
+    
+    FOREIGN KEY (id_dosificado) REFERENCES Dosificados(id_dosificado),
+    FOREIGN KEY (id_lote_insumo) REFERENCES LotesInsumo(id_lote_insumo)
+);
+
+CREATE TABLE ProcesosRecurrente (
+    id_proceso_recurrente SERIAL PRIMARY KEY,
+    numero_batch NUMERIC(2) CHECK (numero_batch > 0),
+    fecha_proceso TIMESTAMP NOT NULL,
+    tiempo_proceso NUMERIC(3) CHECK (tiempo_proceso > 0),
+    peso_inicial NUMERIC(5,1) CHECK (peso_inicial > 0),
+    merma NUMERIC(5,1) CHECK (merma >= 0),
+    estado estado_lote_enum NOT NULL,
+    id_lote_producto INT NOT NULL,
+    FOREIGN KEY (id_lote_producto) REFERENCES LotesProducto(id_lote_producto)
+);
+
+CREATE TABLE Mezclados (
+    id_proceso_recurrente INT PRIMARY key, 
+    cod_mezclado VARCHAR(8) UNIQUE NOT NULL,
+    porcentaje_humedad NUMERIC(2,2) CHECK (porcentaje_humedad > 0),
+    cantidad_agua NUMERIC(3) CHECK (cantidad_agua > 0),
+    id_empleado INT NOT NULL,
+    id_ejemplar_maquina INT NOT NULL,
+    id_formulacion INT NOT NULL,
+    FOREIGN KEY (id_proceso_recurrente) REFERENCES ProcesosRecurrente(id_proceso_recurrente),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado),
+    FOREIGN KEY (id_ejemplar_maquina) REFERENCES EjemplaresMaquina(id_ejemplar_maquina),
+    FOREIGN KEY (id_formulacion) references Formulaciones(id_formulacion)
+);
+
+CREATE TABLE TiposBoquilla (
+	cod_tipo_boquilla VARCHAR(5) PRIMARY KEY,
+	descripcion VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE Moldeados (
+    id_proceso_recurrente INT PRIMARY KEY, 
+    cod_moldeado VARCHAR(8) UNIQUE NOT NULL,
+    tipo_boquilla VARCHAR(5) NOT NULL,
+    presion NUMERIC(6,2) CHECK (presion > 0),
+    velocidad_corte NUMERIC(6,2) CHECK (velocidad_corte > 0),
+    tamano_corte NUMERIC(6,2) CHECK (tamano_corte > 0),
+    id_empleado INT NOT NULL,
+    id_ejemplar_maquina INT NOT NULL,
+    FOREIGN KEY (id_proceso_recurrente) REFERENCES ProcesosRecurrente(id_proceso_recurrente),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado),
+    FOREIGN KEY (id_ejemplar_maquina) REFERENCES EjemplaresMaquina(id_ejemplar_maquina),
+    FOREIGN KEY (tipo_boquilla) REFERENCES TiposBoquilla(cod_tipo_boquilla)
+);
+
+CREATE TABLE Secados (
+   	id_proceso_recurrente INT PRIMARY KEY, 
+    cod_secado VARCHAR(8) UNIQUE NOT NULL,
+    numero_bandejas NUMERIC(2) CHECK (numero_bandejas > 0),
+    temperatura_inicial NUMERIC(7,3) CHECK (temperatura_inicial > 0),
+    temperatura_final NUMERIC(7,3) CHECK (temperatura_final > 0),
+    porcentaje_humedad numeric(5,2) CHECK (porcentaje_humedad > 0),
+    id_empleado INT NOT NULL,
+    id_ejemplar_maquina INT NOT NULL,
+    FOREIGN KEY (id_proceso_recurrente) REFERENCES ProcesosRecurrente(id_proceso_recurrente),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado),
+    FOREIGN KEY (id_ejemplar_maquina) REFERENCES EjemplaresMaquina(id_ejemplar_maquina)
+);
+
+CREATE TABLE Envasados (
+    id_envasado SERIAL PRIMARY KEY,
+    cod_envasado VARCHAR(8) UNIQUE NOT NULL,
+    fecha_proceso TIMESTAMP NOT NULL,
+    numero_batch NUMERIC(2) CHECK (numero_batch > 0),
+    tipo_envase tipo_envase_enum NOT NULL,
+    tiempo_proceso NUMERIC(3) CHECK (tiempo_proceso > 0),
+    peso NUMERIC(4) CHECK (peso > 0),
+    estado estado_lote_enum NOT NULL,
+    id_lote_producto INT NOT NULL,
+    id_empleado INT NOT NULL,
+    FOREIGN KEY (id_lote_producto) REFERENCES LotesProducto(id_lote_producto),
+	FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
