@@ -1,3 +1,4 @@
+
 -- DROPs
 DROP TABLE IF EXISTS Personas CASCADE;
 DROP TABLE IF EXISTS TelefonosPersona CASCADE;
@@ -21,7 +22,6 @@ DROP TABLE IF EXISTS Empleados CASCADE;
 DROP TABLE IF EXISTS PedidosCliente CASCADE;
 DROP TABLE IF EXISTS LotesProducto CASCADE;
 
-DROP TABLE IF EXISTS Compras CASCADE;
 DROP TABLE IF EXISTS Productos CASCADE;
 DROP TABLE IF EXISTS OrdenesProduccion CASCADE;
 DROP TABLE IF EXISTS Insumos CASCADE;
@@ -52,6 +52,16 @@ DROP TABLE IF EXISTS Mezclados CASCADE;
 DROP TABLE IF EXISTS ProcesosRecurrente CASCADE;
 DROP TABLE IF EXISTS DosificadosXLotesinsumo CASCADE;
 DROP TABLE IF EXISTS Dosificados CASCADE;
+
+DROP TABLE IF exists Proveedores CASCADE;
+DROP TABLE IF exists PropuestasCompra CASCADE;
+DROP TABLE IF exists SeguimientosCompra CASCADE;
+DROP TABLE IF exists OrdenesCompra CASCADE;
+DROP TABLE IF exists Compras CASCADE;
+DROP TABLE IF exists NotificacionesReclamo CASCADE;
+DROP TABLE IF exists Reclamos CASCADE;
+DROP TABLE IF exists InsumosxProveedores CASCADE;
+DROP TABLE IF exists InspeccionesLoteInsumo CASCADE;
 
 -- ENUMs
 DO $$ BEGIN
@@ -107,7 +117,7 @@ CREATE TYPE estado_abastecimiento_enum AS ENUM ('atender','Atendido');
 DO $$ BEGIN
     DROP TYPE IF EXISTS tipo_insumo_enum;
 END $$;
-CREATE TYPE tipo_insumo_enum AS ENUM ('Materia Prima','Aditivos','Material Empaque');
+CREATE TYPE tipo_insumo_enum AS ENUM ('Materia Prima','Aditivo','Material Empaque');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_laboral_enum;
@@ -150,25 +160,104 @@ END $$;
 CREATE TYPE tipo_envase_enum AS ENUM ('Bolsa de plastico', 'Caja de carton');
 
 
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_propuesta_compra_enum;
+END $$;
+CREATE TYPE estado_propuesta_compra_enum AS ENUM ('Pendiente', 'Aprobado', 'Rechazado');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_orden_compra_enum;
+END $$;
+CREATE TYPE estado_orden_compra_enum AS ENUM ('Sin Enviar', 'Pendiente', 'Pagado', 'Cancelado');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_compra_enum;
+END $$;
+CREATE TYPE estado_compra_enum AS ENUM ('Sin Revision', 'En Proceso', 'Aceptado', 'Rechazado');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_seguimiento_compra_enum;
+END $$;
+CREATE TYPE estado_seguimiento_compra_enum AS ENUM ('Pendiente', 'A Tiempo', 'Con Retraso', 'Cancelado');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_notificacion_reclamo_enum;
+END $$;
+CREATE TYPE estado_notificacion_reclamo_enum AS ENUM ('Pendiente', 'Atendido');
+
+DO $$ BEGIN
+    DROP TYPE IF EXISTS objetivo_reclamo_enum;
+END $$;
+CREATE TYPE objetivo_reclamo_enum AS ENUM ('Reposicion', 'Devolucion');
+
+CREATE TABLE Personas (
+    ID_PERSONA SERIAL PRIMARY KEY,
+    DNI CHAR(8) NOT NULL UNIQUE,
+    NOMBRE VARCHAR(50) NOT NULL,
+    AP_PATERNO VARCHAR(50) NOT NULL,
+    AP_MATERNO VARCHAR(50) NOT NULL,
+    DIRECCION VARCHAR(100),
+    FECHA_NAC DATE
+);
+
+CREATE TABLE TelefonosPersona (
+    ID_PERSONA INT NOT NULL,
+    TELEFONO VARCHAR(9) NOT NULL,
+    PRIMARY KEY (ID_PERSONA, TELEFONO),
+    FOREIGN KEY (ID_PERSONA) REFERENCES Personas(ID_PERSONA)
+);
+
+CREATE TABLE CorreosPersona (
+    ID_PERSONA INT NOT NULL,
+    CORREO VARCHAR(60) NOT NULL,
+    PRIMARY KEY (ID_PERSONA, CORREO),
+    FOREIGN KEY (ID_PERSONA) REFERENCES Personas(ID_PERSONA)
+);
+
+CREATE TABLE Ubigeos (
+    ID_UBIGEO CHAR(6) PRIMARY KEY,
+    DEPARTAMENTO VARCHAR(50) NOT NULL,
+    PROVINCIA VARCHAR(50) NOT NULL,
+    DISTRITO VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Empresas (
+    ID_EMPRESA SERIAL PRIMARY KEY,
+    CODIGO_RUC VARCHAR(11) NOT NULL UNIQUE,
+    RAZON_SOCIAL VARCHAR(80) NOT NULL,
+    NOMBRE_COMERCIAL VARCHAR(80),
+    DIRECCION VARCHAR(150),
+    UBIGEO_DIRECCION CHAR(6),
+    FOREIGN KEY (UBIGEO_DIRECCION) REFERENCES Ubigeos(ID_UBIGEO)
+);
+
+CREATE TABLE TelefonosEmpresa (
+    ID_EMPRESA INT NOT NULL,
+    TELEFONO VARCHAR(9) NOT NULL,
+    PRIMARY KEY (ID_EMPRESA, TELEFONO),
+    FOREIGN KEY (ID_EMPRESA) REFERENCES Empresas(ID_EMPRESA)
+);
+
 CREATE TABLE Empleados (
     id_empleado SERIAL PRIMARY KEY,
     codigo CHAR(5) UNIQUE NOT NULL,
     estado_laboral estado_laboral_enum NOT NULL
 );
 
-CREATE TABLE Compras (
-   id_compra SERIAL PRIMARY KEY
-);
-
 CREATE TABLE Productos (
    id_producto SERIAL PRIMARY KEY
+);
+
+create table InspeccionesLoteInsumo (
+	id_inspeccion_lote_insumo SERIAL primary key
 );
 
 CREATE TABLE PedidosCliente (
     ID_PEDIDO_CLIENTE SERIAL PRIMARY KEY
 );
 
---Tablas de AAlmacen de Insu,os 
+--Tablas de AAlmacen de Insumos 
 CREATE TABLE Insumos (
     id_insumo SERIAL PRIMARY KEY,
     codigo_insumo VARCHAR(20) unique not NULL, 
@@ -195,6 +284,67 @@ CREATE TABLE DetallesFormulacion (
     FOREIGN KEY (id_insumo) REFERENCES Insumos(id_insumo)
 );
 
+create table Proveedores (
+	id_proveedor SERIAL primary key,
+	cod_proveedor VARCHAR(5) unique not null,
+	tipo_insumo tipo_insumo_enum not null
+);
+
+CREATE TABLE SolicitudesAbastecimiento (
+    id_solicitud_abastecimiento SERIAL PRIMARY KEY,
+    codigo_solicitud_abastecimiento VARCHAR(50) unique NOT null,
+    Fecha_solicitud_abastecimiento timestamp not null,
+    id_empleado INT NOT NULL,
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+create table PropuestasCompra (
+	id_propuesta_compra SERIAL primary key,
+	cod_propuesta_compra VARCHAR(8) unique not null,
+	id_empleado INT not null,
+	id_proveedor INT not null,
+	id_solicitud_abastecimiento INT not null,
+	fecha_acuerdo_entrega TIMESTAMP not null,
+	fecha_propuesta_compra TIMESTAMP not null,
+	estado estado_propuesta_compra_enum not null,
+	descuento_compra NUMERIC(4,2) CHECK (descuento_compra >= 0),
+	monto_total_compra NUMERIC(7,2) NOT NULL CHECK (monto_total_compra >= 0),
+	
+	foreign key (id_empleado) references Empleados(id_empleado),
+	foreign key (id_proveedor) references Proveedores(id_proveedor),
+	foreign key (id_solicitud_abastecimiento) references SolicitudesAbastecimiento(id_solicitud_abastecimiento)
+);
+
+create table OrdenesCompra (
+	id_orden_compra SERIAL primary key,
+	cod_orden_compra VARCHAR(8) unique not null,
+	id_propuesta_compra INT not null,
+	id_empleado INT not null,
+	estado estado_orden_compra_enum not null,
+	
+	foreign key (id_empleado) references Empleados(id_empleado),
+	foreign key (id_propuesta_compra) references PropuestasCompra(id_propuesta_compra)
+);
+
+create table Compras (
+	id_compra SERIAL primary key,
+	cod_compra VARCHAR(8) unique not null,
+	id_orden_compra INT not null,
+	estado estado_compra_enum null,
+	
+	foreign key (id_orden_compra) references OrdenesCompra(id_orden_compra)
+);
+
+create table SeguimientosCompra (
+	id_seguimiento_compra SERIAL primary key,
+	cod_seguimiento_compra VARCHAR(8) unique not null,
+	id_compra INT not null,
+	fecha_ingreso_compra TIMESTAMP null,
+	estado estado_seguimiento_compra_enum not null,
+	
+	foreign key (id_compra) references Compras(id_compra)
+);
+
 CREATE TABLE Ubicaciones (
     id_ubicacion SERIAL PRIMARY KEY,
     zoma VARCHAR(50) NOT NULL ,
@@ -213,20 +363,54 @@ CREATE TABLE Recepciones (
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
 
-
-
 CREATE TABLE LotesInsumo (
     id_lote_insumo SERIAL PRIMARY KEY,
     codigo_lote VARCHAR(50) unique NOT null,
     cantidad_recibida INT NOT null,
     cantidad_disponible INT NOT null,
     Fecha_vencimiento DATE NOT null,
-    id_insumo INT not NULL,
+    id_insumo INT not null,
+    id_compra INT not null,
     id_recepcion INT not NULL,
     id_ubicacion INT not NULL,
     FOREIGN KEY (id_insumo) REFERENCES Insumos(id_insumo),
     FOREIGN KEY (id_recepcion) references Recepciones(id_recepcion),
-    FOREIGN KEY (id_ubicacion) REFERENCES Ubicaciones(id_ubicacion)
+    FOREIGN KEY (id_ubicacion) REFERENCES Ubicaciones(id_ubicacion),
+    foreign key (id_compra) references Compras(id_compra)
+);
+
+create table NotificacionesReclamo (
+	id_notificacion_reclamo SERIAL primary key,
+	cod_notificacion_reclamo VARCHAR(8) unique not null,
+	id_inspeccion_lote_insumo INT not null,
+	id_lote_insumo INT not null,
+	id_empleado INT not null,
+	estado estado_notificacion_reclamo_enum not null,
+	
+	foreign key (id_empleado) references Empleados(id_empleado),
+	foreign key (id_inspeccion_lote_insumo) references InspeccionesLoteInsumo(id_inspeccion_lote_insumo),
+	foreign key (id_lote_insumo) references LotesInsumo(id_lote_insumo)
+);
+
+create table Reclamos (
+	id_reclamo SERIAL primary key,
+	cod_reclamo VARCHAR(8) unique not null,
+	objetivo objetivo_reclamo_enum not null,
+	id_lote_insumo INT null,
+	monto_devuelto numeric(6,2) null CHECK (monto_devuelto >= 0),
+	fecha_atencion_reclamo TIMESTAMP not null,
+	
+	foreign key (id_lote_insumo) references LotesInsumo(id_lote_insumo)
+);
+
+create table InsumosXProveedores (
+	precio_referencial NUMERIC(4,2) not null CHECK (precio_referencial >= 0),
+	id_proveedor INT not null,
+	id_insumo INT not null,
+	
+	primary key (id_proveedor, id_insumo),
+	foreign key (id_proveedor) references Proveedores(id_proveedor),
+	foreign key (id_insumo) references Insumos(id_insumo)
 );
 
 CREATE TABLE SolicitudesProduccion (
@@ -277,15 +461,6 @@ CREATE TABLE InventariosAbastecimiento (
     FOREIGN KEY (id_lote_insumo) REFERENCES LotesInsumo(id_lote_insumo)    
 );
 
-CREATE TABLE SolicitudesAbastecimiento (
-    id_solicitud_abastecimiento SERIAL PRIMARY KEY,
-    codigo_solicitud_abastecimiento VARCHAR(50) unique NOT null,
-    Fecha_solicitud_abastecimiento timestamp not null,
-    id_empleado INT NOT NULL,
-    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
-);
-
-
 CREATE TABLE DetallesSolicitud (
     id_solicitud_abastecimiento INT not NULL,
     id_insumo INT not NULL,
@@ -296,55 +471,6 @@ CREATE TABLE DetallesSolicitud (
 );
 
 -- Tablas generales
-
-CREATE TABLE Personas (
-    ID_PERSONA SERIAL PRIMARY KEY,
-    DNI CHAR(8) NOT NULL UNIQUE,
-    NOMBRE VARCHAR(50) NOT NULL,
-    AP_PATERNO VARCHAR(50) NOT NULL,
-    AP_MATERNO VARCHAR(50) NOT NULL,
-    DIRECCION VARCHAR(100),
-    FECHA_NAC DATE
-);
-
-CREATE TABLE TelefonosPersona (
-    ID_PERSONA INT NOT NULL,
-    TELEFONO VARCHAR(9) NOT NULL,
-    PRIMARY KEY (ID_PERSONA, TELEFONO),
-    FOREIGN KEY (ID_PERSONA) REFERENCES Personas(ID_PERSONA)
-);
-
-CREATE TABLE CorreosPersona (
-    ID_PERSONA INT NOT NULL,
-    CORREO VARCHAR(60) NOT NULL,
-    PRIMARY KEY (ID_PERSONA, CORREO),
-    FOREIGN KEY (ID_PERSONA) REFERENCES Personas(ID_PERSONA)
-);
-
-CREATE TABLE Ubigeos (
-    ID_UBIGEO CHAR(6) PRIMARY KEY,
-    DEPARTAMENTO VARCHAR(50) NOT NULL,
-    PROVINCIA VARCHAR(50) NOT NULL,
-    DISTRITO VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE Empresas (
-    ID_EMPRESA SERIAL PRIMARY KEY,
-    CODIGO_RUC VARCHAR(11) NOT NULL UNIQUE,
-    RAZON_SOCIAL VARCHAR(80) NOT NULL,
-    NOMBRE_COMERCIAL VARCHAR(80),
-    DIRECCION VARCHAR(150),
-    UBIGEO_DIRECCION CHAR(6),
-    FOREIGN KEY (UBIGEO_DIRECCION) REFERENCES Ubigeos(ID_UBIGEO)
-);
-
-CREATE TABLE TelefonosEmpresa (
-    ID_EMPRESA INT NOT NULL,
-    TELEFONO VARCHAR(9) NOT NULL,
-    PRIMARY KEY (ID_EMPRESA, TELEFONO),
-    FOREIGN KEY (ID_EMPRESA) REFERENCES Empresas(ID_EMPRESA)
-);
-
 
 CREATE TABLE TiposUnidad (
     CODIGO CHAR(4) PRIMARY KEY,
