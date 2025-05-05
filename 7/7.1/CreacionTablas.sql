@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS OrdenesCarga CASCADE;
 DROP TABLE IF EXISTS PedidosDespacho CASCADE;
 DROP TABLE IF EXISTS TiposIncidencia CASCADE;
 DROP TABLE IF EXISTS DetallesEntrega CASCADE;
+DROP TABLE IF EXISTS RecepcionesAlmacen CASCADE;
 
 DROP TABLE IF EXISTS Empleados CASCADE;
 DROP TABLE IF EXISTS PedidosCliente CASCADE;
@@ -505,11 +506,10 @@ create table InsumosXProveedores (
 
 CREATE TABLE SolicitudesProduccion (
     id_solicitud_produccion SERIAL PRIMARY KEY,
-    cod_solicitud_produccion VARCHAR(10) UNIQUE NOT NULL,
+    codigo CHAR(8) UNIQUE NOT NULL,
     cantidad_requerida INT NOT NULL,
     fecha_requerida DATE NOT NULL,
-    fecha_solicitud DATE NOT NULL,
-    hora_solicitud TIME NOT NULL,
+    fecha_solicitud TIMESTAMP NOT NULL,
     estado estado_solicitud_enum NOT NULL,
     id_producto INT ,
     foreign key (id_producto) references Productos(id_producto)
@@ -518,9 +518,8 @@ CREATE TABLE SolicitudesProduccion (
 
 CREATE TABLE OrdenesProduccion (
     id_orden_produccion SERIAL PRIMARY KEY,
-    cod_orden_produccion VARCHAR(10) UNIQUE NOT NULL,
-    fecha_emision DATE NOT NULL,
-    hora_emision TIME NOT NULL,
+    codigo CHAR(8) UNIQUE NOT NULL,
+    fecha_emision TIMESTAMP NOT NULL,
     fecha_fin_estimada DATE NOT NULL,
     fecha_finalizacion DATE,
     estado estado_orden_enum NOT NULL,
@@ -646,7 +645,7 @@ CREATE TABLE RegistrosEntrega (
     id_orden_carga INT NOT NULL,
     id_pedido_cliente INT NOT NULL,
     estado_entrega estado_entrega_enum NOT NULL,
-    fecha_entrega TIMESTAMP
+    fecha_entrega TIMESTAMP,
 
     FOREIGN KEY (id_orden_carga) REFERENCES OrdenesCarga(id_orden_carga),
     FOREIGN KEY (id_pedido_cliente) REFERENCES PedidosCliente(id_pedido_cliente)
@@ -669,10 +668,9 @@ CREATE TABLE GuiasRemision (
 
 CREATE TABLE LotesProducto (
     id_lote_producto SERIAL PRIMARY KEY,
-    cod_lote_producto VARCHAR(10) UNIQUE NOT NULL,
+    codigo CHAR(8) UNIQUE NOT NULL,
     cantidad_producida INT NOT NULL,
-    fecha_creacion DATE NOT NULL,
-    hora_creacion TIME NOT NULL,
+    fecha_creacion TIMESTAMP NOT NULL,
     estado_lote_producto estado_lote_producto_enum NOT NULL,
     estado_calidad estado_calidad_lote_producto_enum NOT NULL,
     fecha_vencimiento DATE,
@@ -721,7 +719,7 @@ CREATE TABLE ProcesosRecurrente (
 
 CREATE TABLE TiposMaquina (
     id_tipo_maquina SERIAL PRIMARY KEY,
-    cod_tipo_maquina VARCHAR(10) UNIQUE NOT NULL,
+    codigo CHAR(8) UNIQUE NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     marca VARCHAR(50),
     modelo VARCHAR(50),
@@ -730,7 +728,7 @@ CREATE TABLE TiposMaquina (
 
 CREATE TABLE EjemplaresMaquina (
     id_ejemplar_maquina SERIAL PRIMARY KEY,
-    cod_ejemplar_maquina VARCHAR(10) UNIQUE NOT NULL,
+    codigo CHAR(8) UNIQUE NOT NULL,
     fecha_instalacion DATE,
     estado estado_ejemplar_enum NOT NULL,
     fecha_ultimo_mantenimiento DATE,
@@ -738,6 +736,7 @@ CREATE TABLE EjemplaresMaquina (
     id_tipo_maquina INT NOT NULL ,
  	FOREIGN KEY (id_tipo_maquina) REFERENCES TiposMaquina(id_tipo_maquina)
 );
+
 
 CREATE TABLE Mezclados (
     id_proceso_recurrente INT PRIMARY key, 
@@ -839,9 +838,8 @@ CREATE TABLE DetallesEntrega (
 
 CREATE TABLE SolicitudesMantenimiento(
     id_solicitud_mantenimiento SERIAL PRIMARY KEY,
-    cod_solicitud_mantenimiento VARCHAR(10) UNIQUE NOT NULL,
-    fecha_solicitud DATE,
-    hora_solicitud TIME,
+    codigo CHAR(8) UNIQUE NOT NULL,
+    fecha_solicitud TIMESTAMP,
     fecha_requerida DATE,
     tipo_mantenimiento tipo_mantenimiento_enum NOT NULL,
     estado estado_solicitud_enum NOT NULL,
@@ -853,9 +851,8 @@ CREATE TABLE SolicitudesMantenimiento(
 
 CREATE TABLE OrdenesMantenimiento (
     id_orden_mantenimiento SERIAL PRIMARY KEY,
-    cod_orden_mantenimiento VARCHAR(10) UNIQUE NOT NULL,
-    fecha_emision DATE,
-    hora_emision TIME,
+    codigo CHAR(8) UNIQUE NOT NULL,
+    fecha_emision TIMESTAMP,
     fecha_fin_estimada DATE,
     fecha_finalizacion DATE,
     estado estado_orden_enum NOT NULL,
