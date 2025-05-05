@@ -69,6 +69,14 @@ DROP TABLE IF EXISTS InspeccionesGenerales CASCADE;
 DROP TABLE IF EXISTS Pickings CASCADE;
 DROP TABLE IF EXISTS PedidosCliente CASCADE;
 
+DROP TABLE IF EXISTS Recepciones CASCADE;
+DROP TABLE IF EXISTS StockS CASCADE;
+DROP TABLE IF EXISTS DetallesPedido CASCADE;
+DROP TABLE IF EXISTS PedidosCliente CASCADE;
+DROP TABLE IF EXISTS DetallesMovimiento CASCADE;
+DROP TABLE IF EXISTS Movimientos CASCADE;
+DROP TABLE IF EXISTS Productos CASCADE;
+
 -- ENUMs
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_vehiculo_enum;
@@ -251,6 +259,18 @@ DO $$ BEGIN
     DROP TYPE IF EXISTS tipo_proceso_enum;
 END $$;
 CREATE TYPE tipo_proceso_enum AS ENUM ('Mezclado', 'Moldeado', 'Secado');
+
+CREATE TABLE Productos (
+    id_producto SERIAL PRIMARY KEY,
+    codigo VARCHAR(50) UNIQUE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    peso_producto DECIMAL(10,2),
+    unidadMedida VARCHAR(20),
+    fechaVencimiento DATE,
+    presentacion VARCHAR(50),
+    precio_unitario DECIMAL(10,2),
+    descripcion TEXT
+);
 
 CREATE TABLE Personas (
     ID_PERSONA SERIAL PRIMARY KEY,
@@ -868,4 +888,61 @@ CREATE TABLE InspeccionesPicking (
     motivo_defecto motivo_defecto_picking_enum,
     FOREIGN KEY (id_inspeccion) REFERENCES InspeccionesGenerales(id_inspeccion),
     FOREIGN KEY (id_picking) REFERENCES Pickings(id_picking)
+);
+-- Movimientos
+CREATE TABLE Movimientos (
+    id_movimiento SERIAL PRIMARY KEY,
+    fecha DATE NOT NULL,
+    id_empleado INT NOT NULL,
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+-- DetallesMovimiento
+CREATE TABLE DetallesMovimiento (
+    id_detalle_movimiento SERIAL PRIMARY KEY,
+    cantidad_movida DECIMAL(10,2),
+    ubicacion_inicial VARCHAR(100),
+    ubicacion_final VARCHAR(100),
+    nombre_producto VARCHAR(100),
+    id_lote_producto INT NOT NULL,
+    id_movimiento INT NOT NULL,
+    FOREIGN KEY (id_lote_producto) REFERENCES LotesProducto(id_lote_producto),
+    FOREIGN KEY (id_movimiento) REFERENCES Movimientos(id_movimiento)
+);
+
+-- DetallesPedido
+CREATE TABLE DetallesPedido (
+    id_detalle_pedido SERIAL PRIMARY KEY,
+    cantidad_solicitada DECIMAL(10,2) NOT NULL,
+    nombre_producto VARCHAR(100),
+    detalle_pedido TEXT,
+    id_producto INT NOT NULL,
+    id_pedido_cliente INT NOT NULL,
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    FOREIGN KEY (id_pedido_cliente) REFERENCES PedidosCliente(id_pedido_cliente)
+);
+
+-- Stocks
+CREATE TABLE Stocks (
+    id_stock SERIAL PRIMARY KEY,
+    stock_minimo DECIMAL(10,2),
+    cantidad_disponible DECIMAL(10,2),
+    id_producto INT NOT NULL,
+    id_lote_producto INT NOT NULL,
+    id_ubicacion INT NOT NULL,
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    FOREIGN KEY (id_lote_producto) REFERENCES LotesProducto(id_lote_producto),
+    FOREIGN KEY (id_ubicacion) REFERENCES Ubicaciones(id_ubicacion)
+);
+
+-- Recepciones
+CREATE TABLE RecepcionesAlmacen (
+    id_recepcion SERIAL PRIMARY KEY,
+    fecha_recepcion DATE NOT NULL,
+    hora_recepcion TIME,
+    cantidad DECIMAL(10,2),
+    id_lote_producto INT NOT NULL,
+    id_empleado INT NOT NULL,
+    FOREIGN KEY (id_lote_producto) REFERENCES LotesProducto(id_lote_producto),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
