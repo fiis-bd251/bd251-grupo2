@@ -2251,7 +2251,7 @@ INSERT INTO PedidosCliente (id_pedido_cliente, estado_pedido_cliente) values -- 
 (100, 'Completado');
 
 -- Poblacion de tablas - Almacen de insumos
-INSERT INTO Insumos (codigo_insumo, nombre_insumo, unidad_medida, tipo_insumo) VALUES
+INSERT INTO Insumos (codigo, nombre_insumo, unidad_medida, tipo_insumo) VALUES
 ('INS001', 'Harina de trigo', 'Kg', 'Materia Prima'),
 ('INS002', 'Sémola de trigo', 'Kg', 'Materia Prima'),
 ('INS003', 'Agua purificada', 'Unidad', 'Materia Prima'),
@@ -2268,7 +2268,7 @@ INSERT INTO Insumos (codigo_insumo, nombre_insumo, unidad_medida, tipo_insumo) V
 ('INS014', 'Envase secundario', 'Cajas', 'Material Empaque'),
 ('INS015', 'Pallet de madera', 'Unidad', 'Material Empaque');
 
-INSERT INTO Formulaciones (id_producto, Codigo_formulacion, Nombre_formulacion, fecha_creacion) VALUES
+INSERT INTO Formulaciones (id_producto, codigo, Nombre_formulacion, fecha_creacion) VALUES
 (1, 'FOR001', 'Fideos largos estándar', '2024-01-15'),
 (2, 'FOR002', 'Fideos cortos con sémola', '2024-01-20'),
 (3, 'FOR003', 'Pasta integral', '2024-02-01'),
@@ -2339,37 +2339,37 @@ INSERT INTO DetallesFormulacion (id_formulacion, id_insumo, cantidad_asignada) V
 (10, 3, 1),
 (10, 6, 2);
 
-INSERT INTO Proveedores (id_proveedor, cod_proveedor, tipo_insumo) VALUES
+INSERT INTO Proveedores (id_proveedor, codigo, tipo_insumo) VALUES
 (2 , 'PV001','Materia Prima'),
 (7 , 'PV002','Aditivo'),
 (15, 'PV003','Material Empaque'),
 (8 , 'PV004','Materia Prima'),
 (10, 'PV005','Aditivo');
 
-INSERT INTO SolicitudesAbastecimiento (codigo_solicitud_abastecimiento, Fecha_solicitud_abastecimiento, id_empleado) VALUES
-('SOLAB001', '2024-01-12 08:30:00', 5),
-('SOLAB002', '2024-01-15 09:45:00', 12),
-('SOLAB003', '2024-01-20 10:00:00', 22),
-('SOLAB004', '2024-01-25 13:15:00', 8),
-('SOLAB005', '2024-02-01 07:50:00', 3),
-('SOLAB006', '2024-02-08 08:10:00', 16),
-('SOLAB007', '2024-02-14 09:00:00', 27),
-('SOLAB008', '2024-02-20 14:30:00', 31),
-('SOLAB009', '2024-02-27 10:45:00', 19),
-('SOLAB010', '2024-03-05 11:00:00', 44),
-('SOLAB011', '2024-03-10 08:20:00', 37),
-('SOLAB012', '2024-03-15 10:10:00', 50),
-('SOLAB013', '2024-03-20 07:40:00', 9),
-('SOLAB014', '2024-03-25 13:05:00', 14),
-('SOLAB015', '2024-03-30 12:00:00', 6),
-('SOLAB016', '2024-04-05 09:30:00', 23),
-('SOLAB017', '2024-04-10 08:55:00', 2),
-('SOLAB018', '2024-04-15 10:25:00', 58),
-('SOLAB019', '2024-04-20 07:45:00', 41),
-('SOLAB020', '2024-04-25 11:15:00', 13);
+INSERT INTO SolicitudesAbastecimiento (codigo, Fecha_solicitud_abastecimiento, id_empleado, estado) VALUES
+('SOLAB001', '2024-01-12 08:30:00', 5,   'Atendido'),
+('SOLAB002', '2024-01-15 09:45:00', 12,  'Atendido'),
+('SOLAB003', '2024-01-20 10:00:00', 22,  'Atendido'),
+('SOLAB004', '2024-01-25 13:15:00', 8,   'Atendido'),
+('SOLAB005', '2024-02-01 07:50:00', 3,   'Atendido'),
+('SOLAB006', '2024-02-08 08:10:00', 16,  'Atendido'),
+('SOLAB007', '2024-02-14 09:00:00', 27,  'Atendido'),
+('SOLAB008', '2024-02-20 14:30:00', 31,  'Atendido'),
+('SOLAB009', '2024-02-27 10:45:00', 19,  'Atendido'),
+('SOLAB010', '2024-03-05 11:00:00', 44,  'Atendido'),
+('SOLAB011', '2024-03-10 08:20:00', 37,  'Atendido'),
+('SOLAB012', '2024-03-15 10:10:00', 50,  'Atendido'),
+('SOLAB013', '2024-03-20 07:40:00', 9,   'Atendido'),
+('SOLAB014', '2024-03-25 13:05:00', 14,  'Atendido'),
+('SOLAB015', '2024-03-30 12:00:00', 6,   'Atendido'),
+('SOLAB016', '2024-04-05 09:30:00', 23,  'Atendido'),
+('SOLAB017', '2024-04-10 08:55:00', 2,   'Atendido'),
+('SOLAB018', '2024-04-15 10:25:00', 58,  'Atendido'),
+('SOLAB019', '2024-04-20 07:45:00', 41,  'Atendido'),
+('SOLAB020', '2024-04-25 11:15:00', 13, 'Pendiente');
 
 INSERT INTO PropuestasCompra (
-	id_propuesta_compra, cod_propuesta_compra, id_empleado, id_proveedor, id_solicitud_abastecimiento,
+	id_propuesta_compra, codigo, id_empleado, id_proveedor, id_solicitud_abastecimiento,
 	fecha_acuerdo_entrega, fecha_propuesta_compra, estado,
 	descuento_compra, monto_total_compra
 ) VALUES
@@ -2414,7 +2414,7 @@ INSERT INTO PropuestasCompra (
 (39, 'PC000039', 39, 2,  20, '2024-04-27 10:15:00', '2024-04-26 12:00:00', 'Rechazado', 4.50, 2300.00);
 
 INSERT INTO OrdenesCompra (
-	id_orden_compra, cod_orden_compra, id_propuesta_compra, id_empleado, estado
+	id_orden_compra, codigo, id_propuesta_compra, id_empleado, estado
 ) VALUES
 (1,  'OC000001', 1,  7,      'Pagado'),
 (2,  'OC000002', 2,  4,      'Pagado'),
@@ -2455,7 +2455,7 @@ INSERT INTO OrdenesCompra (
 (37, 'OC000037', 37, 16,  'Cancelado');
 
 INSERT INTO Compras (
-	id_compra, cod_compra, id_orden_compra, estado
+	id_compra, codigo, id_orden_compra, estado
 ) VALUES
 (1,  'CO000001', 1,   'Aceptado'),
 (2,  'CO000002', 2,   'Aceptado'),
@@ -2493,7 +2493,7 @@ INSERT INTO Compras (
 (34, 'CO000034', 34,  null);
 
 INSERT INTO SeguimientosCompra (
-	id_seguimiento_compra, cod_seguimiento_compra, id_compra, fecha_ingreso_compra, estado
+	id_seguimiento_compra, codigo, id_compra, fecha_ingreso_compra, estado
 ) VALUES
 (1,  'SC000001', 1,  '2024-01-15 08:55:37',    'A Tiempo'),
 (2,  'SC000002', 2,  '2024-01-17 10:47:13',    'A Tiempo'),
@@ -2572,7 +2572,7 @@ INSERT INTO Ubicaciones (zoma, Estanteria, Nivel) VALUES
 ('Zona G', 'Estantería 2', 'Nivel 1'),
 ('Zona G', 'Estantería 2', 'Nivel 2');
 
-INSERT INTO Recepciones (codigo_recepcion, fecha_llegada, estado, id_compra, id_empleado) VALUES
+INSERT INTO Recepciones (codigo, fecha_llegada, estado, id_compra, id_empleado) VALUES
 ('REC0001', '2025-04-01 08:00:00', 'En entrega', 1, 12),
 ('REC0002', '2025-04-02 09:15:00', 'Proceso de Calidad', 2, 5),
 ('REC0003', '2025-04-03 10:30:00', 'A recepcionar', 3, 18),
@@ -2599,7 +2599,7 @@ INSERT INTO Recepciones (codigo_recepcion, fecha_llegada, estado, id_compra, id_
 ('REC0024', '2025-04-24 08:35:00', 'A recepcionar', 24, 50),
 ('REC0025', '2025-04-25 10:05:00', 'En entrega', 25, 19);
 
-INSERT INTO LotesInsumo (codigo_lote, cantidad_recibida, cantidad_disponible, Fecha_vencimiento, id_insumo, id_compra, id_recepcion, id_ubicacion, estado_lote_insumo) VALUES
+INSERT INTO LotesInsumo (codigo, cantidad_recibida, cantidad_disponible, Fecha_vencimiento, id_insumo, id_compra, id_recepcion, id_ubicacion, estado_lote_insumo) VALUES
 ('LOTE0001', 174, 53, '2025-12-12', 14, 33, 5, 31, 'Aprobado'),
 ('LOTE0002', 115, 80, '2025-09-07', 10, 34, 11, 16, 'Aprobado'),
 ('LOTE0003', 142, 80, '2025-09-21', 14, 33, 11, 4, 'Rechazado'),
@@ -2711,7 +2711,7 @@ INSERT INTO LotesInsumo (codigo_lote, cantidad_recibida, cantidad_disponible, Fe
 ('LOTE0109', 90, 90, '2025-11-25', 6, 33, 14, 28, 'Pendiente'),
 ('LOTE0110', 50, 50, '2026-03-07', 10, 34, 15, 23, 'Pendiente');
 
-INSERT INTO InspeccionesGenerales (cod_inspeccion, tipo_inspeccion, fecha_hora_inspeccion , estado_revision , id_empleado, comentario, evidencia) VALUES
+INSERT INTO InspeccionesGenerales (codigo, tipo_inspeccion, fecha_hora_inspeccion , estado_revision , id_empleado, comentario, evidencia) VALUES
 ('IG001', 'Lote de Insumo', '2025-05-01 08:30:00', 'Revisado', 60, NULL, NULL),
 ('IG002', 'Lote de Insumo', '2025-05-01 09:00:00', 'Revisado', 41, NULL, NULL),
 ('IG003', 'Lote de Insumo', '2025-05-01 09:30:00', 'Revisado', 60, 'Presencia de cuerpos extraños', 'foto_ig003.jpg'),
@@ -2784,26 +2784,25 @@ INSERT INTO InspeccionesLoteInsumo (
 
 
 INSERT INTO NotificacionesReclamo (
-	id_notificacion_reclamo, cod_notificacion_reclamo, id_inspeccion_lote_insumo ,
+	id_notificacion_reclamo, codigo,
 	id_lote_insumo, id_empleado, estado
 ) VALUES
-(1, 'NR000001', 1, 102, 54,  'Atendido'),
-(2, 'NR000002', 2, 103, 10,  'Atendido'),
-(3, 'NR000003', 3, 104, 31,  'Atendido'),
-(4, 'NR000004', 4, 105, 25,  'Atendido'),
-(5, 'NR000005', 5, 106, 23,  'Atendido'),
-(6, 'NR000006', 6, 107, 41, 'Pendiente');
-
+(1, 'NR000001', 102, 54,  'Atendido'),
+(2, 'NR000002', 103, 10,  'Atendido'),
+(3, 'NR000003', 104, 31,  'Atendido'),
+(4, 'NR000004', 105, 25,  'Atendido'),
+(5, 'NR000005', 106, 23,  'Atendido'),
+(6, 'NR000006', 107, 41, 'Pendiente');
 
 INSERT INTO Reclamos (
-	id_reclamo, cod_reclamo, objetivo,
-	id_lote_insumo, monto_devuelto, fecha_atencion_reclamo
+	id_reclamo, codigo, id_notificacion_reclamo, objetivo,
+	estado, id_lote_insumo, monto_devuelto, fecha_atencion_reclamo
 ) VALUES
-(1, 'RC000001', 'Reposicion', 108, null     , '2024-04-01 12:45:12'),
-(2, 'RC000002', 'Devolucion', null   , 2300.00, '2024-04-02 13:41:17'),
-(3, 'RC000003', 'Reposicion', 109, null     , '2024-04-02 14:20:44'),
-(4, 'RC000004', 'Devolucion', null   , 2200.00, '2024-04-07 12:01:17'),
-(5, 'RC000005', 'Reposicion', 110, null     , '2024-04-07 13:11:52');
+(1, 'RC000001', 1, 'Reposicion', 'Completado',  108, null,    '2024-04-01 12:45:12'),
+(2, 'RC000002', 2, 'Devolucion', 'Completado', null, 2300.00, '2024-04-02 13:41:17'),
+(3, 'RC000003', 3, 'Reposicion', 'Completado',  109, null,    '2024-04-02 14:20:44'),
+(4, 'RC000004', 4, 'Devolucion', 'Completado', null, 2200.00, '2024-04-07 12:01:17'),
+(5, 'RC000005', 5, 'Reposicion', 'Pendiente', 110, null,    '2024-04-07 13:11:52');
 
 INSERT INTO InsumosXProveedores (
 	id_proveedor, id_insumo, precio_referencial
@@ -2832,7 +2831,7 @@ INSERT INTO InsumosXProveedores (
 (15, 14,  4.15),
 (15, 15,  5.35);
 
-INSERT INTO SolicitudesProduccion (id_solicitud_produccion, cod_solicitud_produccion, cantidad_requerida, fecha_requerida, fecha_solicitud, estado, id_producto) VALUES
+INSERT INTO SolicitudesProduccion (id_solicitud_produccion, codigo, cantidad_requerida, fecha_requerida, fecha_solicitud, estado, id_producto) VALUES
 (1, 'SP000001', 146, '2025-05-08', '2025-05-03 08:34:00', 'Con retraso', 4),
 (2, 'SP000002', 230, '2025-05-12', '2025-05-04 16:19:00', 'Pendiente', 10),
 (3, 'SP000003', 217, '2025-05-08', '2025-05-03 14:13:00', 'Con retraso', 2),
@@ -2894,7 +2893,7 @@ INSERT INTO SolicitudesProduccion (id_solicitud_produccion, cod_solicitud_produc
 (59, 'SP000059', 292, '2025-05-15', '2025-05-05 17:39:00', 'Pendiente', 6),
 (60, 'SP000060', 257, '2025-05-12', '2025-05-05 13:07:00', 'Pendiente', 8);
 
-INSERT INTO OrdenesProduccion (id_orden_produccion, cod_orden_produccion, fecha_emision, fecha_fin_estimada, fecha_finalizacion, estado, id_empleado, id_solicitud_produccion) VALUES
+INSERT INTO OrdenesProduccion (id_orden_produccion, codigo, fecha_emision, fecha_fin_estimada, fecha_finalizacion, estado, id_empleado, id_solicitud_produccion) VALUES
 (1, 'OP000001', '2025-05-03 15:07:00', '2025-05-06', '2025-05-05', 'Completado', 21,1),
 (2, 'OP000002', '2025-05-03 14:59:00', '2025-05-09', '2025-05-11', 'Completado', 37,2),
 (3, 'OP000003', '2025-05-04 17:00:00', '2025-05-07', '2025-05-07', 'Con retraso', 22,3),
@@ -2944,7 +2943,7 @@ INSERT INTO OrdenesProduccion (id_orden_produccion, cod_orden_produccion, fecha_
 (47, 'OP000047', '2025-05-02 08:30:00', '2025-05-06', NULL, 'En proceso', 42,47),
 (48, 'OP000048', '2025-05-02 16:10:00', '2025-05-09', '2025-05-10', 'Con retraso', 3,48);
 
-INSERT INTO Abastecimientos (codigo_abastecimiento, fecha_abastecimiento, estado, id_empleado, id_orden_produccion) VALUES
+INSERT INTO Abastecimientos (codigo, fecha_abastecimiento, estado, id_empleado, id_orden_produccion) VALUES
 ('AB001', '2025-04-01 08:30:00', 'atender', 5, 1),
 ('AB002', '2025-04-01 10:00:00', 'Atendido', 12, 2),
 ('AB003', '2025-04-02 09:15:00', 'atender', 7, 3),
@@ -3518,7 +3517,7 @@ insert into GuiasRemision (id_reg_ent, num_guia, motivo_traslado, fecha_emision,
 (79, '1017389822795', 'Devolucion', '2025-04-29', 'Av. Amazonas 345', '150101', 'Jr 24 de Junio 173', '050101'),
 (80, '7582812612539', 'Venta', '2025-04-28', 'Jr 24 de Junio 173', '050101', 'Av. Los Incas 456', '150101');
 
-INSERT INTO LotesProducto (id_lote_producto, cod_lote_producto, cantidad_producida, fecha_creacion, estado_lote_producto, estado_calidad, fecha_vencimiento, etapa_produccion, id_orden_produccion) VALUES
+INSERT INTO LotesProducto (id_lote_producto, codigo, cantidad_producida, fecha_creacion, estado_lote_producto, estado_calidad, fecha_vencimiento, etapa_produccion, id_orden_produccion) VALUES
 (1, 'LP000001', 73, '2025-04-01 07:15:00', 'Retirado', 'Pendiente', '2025-06-30', 'Mezclado', 1),
 (2, 'LP000002', 76, '2025-04-01 07:30:00', 'Completado', 'Aprobado', '2025-06-30', 'Almacen', 2),
 (3, 'LP000003', 55, '2025-04-01 07:45:00', 'Retirado', 'Rechazado', '2025-06-30', 'Envasado', 2),
@@ -3723,7 +3722,7 @@ insert into DetallesEntrega (id_reg_ent, id_lote_producto, cant_entregada, cant_
 (70, 99, 7, 4, 'ED'),
 (70, 100, 6, 3, 'PD');
 
-INSERT INTO TiposMaquina (id_tipo_maquina, cod_tipo_maquina, nombre, marca, modelo, etapa_produccion) VALUES
+INSERT INTO TiposMaquina (id_tipo_maquina, codigo, nombre, marca, modelo, etapa_produccion) VALUES
 (1, 'TM000001', 'Mezcladora industrial', 'Hitachi', 'S450', 'Mezclado'),
 (2, 'TM000002', 'Moldeadora hidráulica', 'Panasonic', 'S450', 'Moldeado'),
 (3, 'TM000003', 'Horno de secado', 'Siemens', 'Q7', 'Secado'),
@@ -3736,7 +3735,7 @@ INSERT INTO TiposMaquina (id_tipo_maquina, cod_tipo_maquina, nombre, marca, mode
 (10,'TM000010', 'Mezcladora continua', 'Panasonic', 'M300', 'Mezclado');
 
 
-INSERT INTO EjemplaresMaquina (id_ejemplar_maquina,cod_ejemplar_maquina,fecha_instalacion,estado,fecha_ultimo_mantenimiento,plan_mantenimiento,id_tipo_maquina) VALUES
+INSERT INTO EjemplaresMaquina (id_ejemplar_maquina,codigo,fecha_instalacion,estado,fecha_ultimo_mantenimiento,plan_mantenimiento,id_tipo_maquina) VALUES
 (1, 'MQ000001', '2022-06-15', 'Operativo', '2024-12-12', 31, 4),
 (2, 'MQ000002', '2023-02-28', 'En mantenimiento', '2024-11-20', 29, 7),
 (3, 'MQ000003', '2021-08-03', 'Operativo', '2024-10-05', 37, 2),
@@ -3798,7 +3797,7 @@ INSERT INTO EjemplaresMaquina (id_ejemplar_maquina,cod_ejemplar_maquina,fecha_in
 (59, 'MQ000059', '2021-05-01', 'Operativo', '2023-06-01', 37, 8),
 (60, 'MQ000060', '2023-09-01', 'En mantenimiento', '2025-03-15', 39, 7);
 
-INSERT INTO Dosificados (id_dosificado, cod_dosificado, numero_batch, fecha_proceso, tiempo_proceso, estado,id_lote_producto, id_empleado
+INSERT INTO Dosificados (id_dosificado, codigo, numero_batch, fecha_proceso, tiempo_proceso, estado,id_lote_producto, id_empleado
 ) VALUES
 (1,'DS440793',1,'2024-12-07 17:57:40',115,'Retirado',1,34),
 (2,'DS598481',1,'2024-08-13 16:14:07',272,'Retirado',2,27),
@@ -4157,7 +4156,7 @@ INSERT INTO ProcesosRecurrente (id_proceso_recurrente,numero_batch,fecha_proceso
 (149,4,'2024-12-20 14:34:30',159,7492.9,5766.2,'En proceso',10),
 (150,5,'2024-12-20 12:51:33',262,6753.1,7704,'Retirado',10);
 
-INSERT INTO Mezclados (id_proceso_recurrente,cod_mezclado,porcentaje_humedad,cantidad_agua, id_empleado, id_ejemplar_maquina, id_formulacion
+INSERT INTO Mezclados (id_proceso_recurrente,codigo,porcentaje_humedad,cantidad_agua, id_empleado, id_ejemplar_maquina, id_formulacion
 ) VALUES
 (1,'MZ172185',0.84,413,2,58,1),
 (2,'MZ531543',0.49,736,28,38,1),
@@ -4210,7 +4209,7 @@ INSERT INTO Mezclados (id_proceso_recurrente,cod_mezclado,porcentaje_humedad,can
 (139,'MZ438503',0.2,152,54,27,1),
 (140,'MZ019512',0.63,321,36,46,1);
 
-INSERT INTO TiposBoquilla (cod_tipo_boquilla, descripcion) VALUES 
+INSERT INTO TiposBoquilla (codigo, descripcion) VALUES 
 ('MLD01', 'Tornillo'),
 ('MLD02', 'Canuto'),
 ('MLD03', 'Spaghetti'),
@@ -4218,7 +4217,7 @@ INSERT INTO TiposBoquilla (cod_tipo_boquilla, descripcion) VALUES
 ('MLD05', 'Codo');
 
 
-INSERT INTO Moldeados (id_proceso_recurrente,cod_moldeado,tipo_boquilla,presion,velocidad_corte,tamano_corte, id_empleado, id_ejemplar_maquina
+INSERT INTO Moldeados (id_proceso_recurrente,codigo,tipo_boquilla,presion,velocidad_corte,tamano_corte, id_empleado, id_ejemplar_maquina
 ) VALUES
 (6,'MD536885','MLD01',732.64,938.02,524.22,6,4),
 (7,'MD045107','MLD01',166.5,156.07,917.5,40,58),
@@ -4267,7 +4266,7 @@ INSERT INTO Moldeados (id_proceso_recurrente,cod_moldeado,tipo_boquilla,presion,
 (130,'MD414602','MLD04',731,126.59,292.64,23,55);
 
 
-INSERT INTO Secados (id_proceso_recurrente,cod_secado,numero_bandejas,temperatura_inicial,temperatura_final,porcentaje_humedad, id_empleado, id_ejemplar_maquina
+INSERT INTO Secados (id_proceso_recurrente,codigo,numero_bandejas,temperatura_inicial,temperatura_final,porcentaje_humedad, id_empleado, id_ejemplar_maquina
 )VALUES
 (11,'SC319437',24,910.743,158.16,0.18,1,3),
 (12,'SC949645',24,732.264,899.125,0.74,1,56),
@@ -4316,7 +4315,7 @@ INSERT INTO Secados (id_proceso_recurrente,cod_secado,numero_bandejas,temperatur
 (135,'SC290573',24,914.629,537.047,0.41,37,46);
 
 
-INSERT INTO Envasados (id_envasado,cod_envasado,fecha_proceso,numero_batch,tipo_envase,tiempo_proceso,peso,estado, id_lote_producto, id_empleado
+INSERT INTO Envasados (id_envasado,codigo,fecha_proceso,numero_batch,tipo_envase,tiempo_proceso,peso,estado, id_lote_producto, id_empleado
 )VALUES
 (1,'EV823297','2024-09-07 17:28:31',1,'Bolsa de plastico',142,3665,'Retirado',1,59),
 (2,'EV576857','2025-03-03 14:57:57',1,'Bolsa de plastico',432,6424,'Completado',2,40),
@@ -4383,13 +4382,13 @@ INSERT INTO InspeccionesProceso (
 (19, 4, 'Mezclado', 'Humano', 'Orden incorrecta en mezcla de ingredientes', 14.40),
 (20, 14, 'Secado', 'Maquina', 'Mal funcionamiento del sistema de ventilación', 19.20);
 
-INSERT INTO SolicitudesMantenimiento (id_solicitud_mantenimiento, cod_solicitud_mantenimiento, fecha_solicitud, fecha_requerida, tipo_mantenimiento, estado, id_ejemplar_maquina, id_inspeccion_proceso) VALUES
+INSERT INTO SolicitudesMantenimiento (id_solicitud_mantenimiento, codigo, fecha_solicitud, fecha_requerida, tipo_mantenimiento, estado, id_ejemplar_maquina, id_inspeccion_proceso) VALUES
 (1, 'SM000001', '2025-04-01 08:15:00', '2025-04-05 ', 'Preventivo', 'Atendida', 12, 13),
 (2, 'SM000002', '2025-04-02 09:00:00', '2025-04-06 ', 'Correctivo', 'Atendida', 45, 15),
 (3, 'SM000003', '2025-04-03 10:30:00', '2025-04-07 ', 'Preventivo', 'Pendiente', 8, 18),
 (4, 'SM000004', '2025-04-04 07:45:00', '2025-04-08 ', 'Correctivo', 'Pendiente', 23, 20);
 
-INSERT INTO OrdenesMantenimiento (id_orden_mantenimiento, cod_orden_mantenimiento, fecha_emision, fecha_fin_estimada, fecha_finalizacion, estado, id_empleado, id_solicitud_mantenimiento ) VALUES
+INSERT INTO OrdenesMantenimiento (id_orden_mantenimiento, codigo, fecha_emision, fecha_fin_estimada, fecha_finalizacion, estado, id_empleado, id_solicitud_mantenimiento ) VALUES
 (1,  'OM0000001', '2025-04-01 08:15:00', '2025-04-05', '2025-04-05', 'Completado',      12, 1),
 (2,  'OM0000002', '2025-04-02 09:00:00', '2025-04-06', NULL,         'En proceso',      45, 2);
 
