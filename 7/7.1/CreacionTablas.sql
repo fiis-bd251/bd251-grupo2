@@ -17,6 +17,8 @@ DROP TABLE IF EXISTS OrdenesCarga CASCADE;
 DROP TABLE IF EXISTS PedidosDespacho CASCADE;
 DROP TABLE IF EXISTS TiposIncidencia CASCADE;
 DROP TABLE IF EXISTS DetallesEntrega CASCADE;
+DROP TABLE IF EXISTS CatalogosDespacho CASCADE;
+
 DROP TABLE IF EXISTS RecepcionesAlmacen CASCADE;
 
 DROP TABLE IF EXISTS Empleados CASCADE;
@@ -77,17 +79,18 @@ DROP TABLE IF EXISTS PedidosCliente CASCADE;
 DROP TABLE IF EXISTS DetallesMovimiento CASCADE;
 DROP TABLE IF EXISTS Movimientos CASCADE;
 DROP TABLE IF EXISTS Productos CASCADE;
+DROP TABLE IF EXISTS RecepcionesAlmacen CASCADE;
 
 -- ENUMs
 DO $$ BEGIN
-    DROP TYPE IF EXISTS estado_vehiculo_enum;
+    DROP TYPE IF EXISTS estado_actividad_enum;
 END $$;
-CREATE TYPE estado_vehiculo_enum AS ENUM ('Activo', 'Inactivo');
+CREATE TYPE estado_actividad_enum AS ENUM ('Activo', 'Inactivo');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS tipo_cobertura_enum;
 END $$;
-CREATE TYPE tipo_cobertura_enum AS ENUM ('Regional', 'Interprovincial', 'Nacional');
+CREATE TYPE tipo_cobertura_enum AS ENUM ('Local', 'Regional', 'Interprovincial', 'Nacional');
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS tipo_servicio_enum;
@@ -177,8 +180,6 @@ DO $$ BEGIN
     DROP TYPE IF EXISTS tipo_envase_enum CASCADE;
 END $$;
 CREATE TYPE tipo_envase_enum AS ENUM ('Bolsa de plastico', 'Caja de carton');
-
-
 
 DO $$ BEGIN
     DROP TYPE IF EXISTS estado_propuesta_compra_enum;
@@ -575,12 +576,11 @@ CREATE TABLE Vehiculos (
     id_vehiculo SERIAL PRIMARY KEY,
     num_placa CHAR(10) NOT NULL UNIQUE,
     tipo_unidad CHAR(4) NOT NULL,
-    estado estado_vehiculo_enum NOT NULL,
+    estado estado_actividad_enum NOT NULL,
     capac_peso NUMERIC(3) CHECK (capac_peso > 0),
     capac_emp NUMERIC(3) CHECK (capac_emp > 0),
     FOREIGN KEY (tipo_unidad) REFERENCES TiposUnidad(codigo)
 );
-
 
 CREATE TABLE EmpresasTransporte (
     id_empresa INT PRIMARY KEY,
@@ -599,8 +599,20 @@ CREATE TABLE Transportistas (
     FOREIGN KEY (id_transportista) REFERENCES Personas(id_persona)
 );
 
+CREATE TABLE CatalogosDespacho (
+    id_tipo_despacho SERIAL PRIMARY KEY,
+    tipo_alcance tipo_cobertura_enum NOT NULL,
+    volumen_min NUMERIC(5,1) CHECK (volumen_min > 0),
+    volumen_max NUMERIC(5,1) CHECK (volumen_max > 0),
+    peso_min NUMERIC(5,1) CHECK (peso_min > 0),
+    peso_max NUMERIC(5,1) CHECK (peso_max > 0),
+    estado estado_actividad_enum NOT NULL,
+    descripcion TEXT
+);
+
 CREATE TABLE ProgramacionesDespacho (
     id_prog_desp SERIAL PRIMARY KEY,
+    id_tipo_despacho INT NOT NULL,
     id_transportista INT NOT NULL,
     id_vehiculo INT NOT NULL,
     id_empleado INT NOT NULL,
@@ -609,7 +621,8 @@ CREATE TABLE ProgramacionesDespacho (
     fecha_programacion DATE NOT NULL,
     FOREIGN KEY (id_transportista) REFERENCES Transportistas(id_transportista),
     FOREIGN KEY (id_vehiculo) REFERENCES Vehiculos(id_vehiculo),
-    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado),
+    FOREIGN KEY (id_tipo_despacho) REFERENCES CatalogosDespacho(id_tipo_despacho)
 );
 
 
