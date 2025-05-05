@@ -182,6 +182,11 @@ END $$;
 CREATE TYPE tipo_envase_enum AS ENUM ('Bolsa de plastico', 'Caja de carton');
 
 DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_solicitud_abastecimiento_enum;
+END $$;
+CREATE TYPE estado_solicitud_abastecimiento_enum AS ENUM ('Pendiente', 'Atendido');
+
+DO $$ BEGIN
     DROP TYPE IF EXISTS estado_propuesta_compra_enum;
 END $$;
 CREATE TYPE estado_propuesta_compra_enum AS ENUM ('Pendiente', 'Aprobado', 'Rechazado');
@@ -331,7 +336,7 @@ CREATE TABLE Empleados (
 --Tablas de Almacen de Insumos 
 CREATE TABLE Insumos (
     id_insumo SERIAL PRIMARY KEY,
-    codigo_insumo VARCHAR(20) unique not NULL, 
+    codigo VARCHAR(20) unique not NULL, 
     nombre_insumo VARCHAR(30)  not NULL,
     unidad_medida unidad_medida_enum not NULL,
     tipo_insumo tipo_insumo_enum not null
@@ -340,7 +345,7 @@ CREATE TABLE Insumos (
 CREATE TABLE Formulaciones (
     id_formulacion SERIAL PRIMARY key,
     id_producto INT not NULL,
-    Codigo_formulacion VARCHAR(29) UNIQUE not NULL, 
+    codigo VARCHAR(29) UNIQUE not NULL, 
     Nombre_formulacion VARCHAR(100) not null,
     fecha_creacion DATE not null,
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
@@ -357,28 +362,29 @@ CREATE TABLE DetallesFormulacion (
 
 create table Proveedores (
 	id_proveedor SERIAL primary key,
-	cod_proveedor VARCHAR(5) unique not null,
+	codigo VARCHAR(5) unique not null,
 	tipo_insumo tipo_insumo_enum not null
 );
 
 CREATE TABLE SolicitudesAbastecimiento (
     id_solicitud_abastecimiento SERIAL PRIMARY KEY,
-    codigo_solicitud_abastecimiento VARCHAR(50) unique NOT null,
+    codigo VARCHAR(50) unique NOT null,
     Fecha_solicitud_abastecimiento timestamp not null,
     id_empleado INT NOT NULL,
+    estado estado_solicitud_abastecimiento_enum not null,
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
 
 create table PropuestasCompra (
 	id_propuesta_compra SERIAL primary key,
-	cod_propuesta_compra VARCHAR(8) unique not null,
+	codigo VARCHAR(8) unique not null,
 	id_empleado INT not null,
 	id_proveedor INT not null,
 	id_solicitud_abastecimiento INT not null,
 	fecha_acuerdo_entrega TIMESTAMP not null,
 	fecha_propuesta_compra TIMESTAMP not null,
 	estado estado_propuesta_compra_enum not null,
-	descuento_compra NUMERIC(4,2) CHECK (descuento_compra >= 0),
+	descuento_compra NUMERIC(4,2) not null CHECK (descuento_compra >= 0),
 	monto_total_compra NUMERIC(7,2) NOT NULL CHECK (monto_total_compra >= 0),
 	
 	foreign key (id_empleado) references Empleados(id_empleado),
@@ -388,7 +394,7 @@ create table PropuestasCompra (
 
 create table OrdenesCompra (
 	id_orden_compra SERIAL primary key,
-	cod_orden_compra VARCHAR(8) unique not null,
+	codigo VARCHAR(8) unique not null,
 	id_propuesta_compra INT not null,
 	id_empleado INT not null,
 	estado estado_orden_compra_enum not null,
@@ -399,7 +405,7 @@ create table OrdenesCompra (
 
 create table Compras (
 	id_compra SERIAL primary key,
-	cod_compra VARCHAR(8) unique not null,
+	codigo VARCHAR(8) unique not null,
 	id_orden_compra INT not null,
 	estado estado_compra_enum null,
 	
@@ -408,7 +414,7 @@ create table Compras (
 
 create table SeguimientosCompra (
 	id_seguimiento_compra SERIAL primary key,
-	cod_seguimiento_compra VARCHAR(8) unique not null,
+	codigo VARCHAR(8) unique not null,
 	id_compra INT not null,
 	fecha_ingreso_compra TIMESTAMP null,
 	estado estado_seguimiento_compra_enum not null,
@@ -425,7 +431,7 @@ CREATE TABLE Ubicaciones (
 
 CREATE TABLE Recepciones (
     id_recepcion SERIAL PRIMARY KEY,
-    codigo_recepcion VARCHAR(20) unique not NULL, 
+    codigo VARCHAR(20) unique not NULL, 
     fecha_llegada TIMESTAMP not NULL,
     estado estado_recepcion_enum NOT null,
     id_compra INT NOT NULL,
@@ -436,7 +442,7 @@ CREATE TABLE Recepciones (
 
 CREATE TABLE LotesInsumo (
     id_lote_insumo SERIAL PRIMARY KEY,
-    codigo_lote VARCHAR(50) UNIQUE NOT NULL,
+    codigo VARCHAR(50) UNIQUE NOT NULL,
     cantidad_recibida INT NOT NULL,
     cantidad_disponible INT NOT NULL,
     fecha_vencimiento DATE NOT NULL,
@@ -453,7 +459,7 @@ CREATE TABLE LotesInsumo (
 
 CREATE TABLE InspeccionesGenerales (
     id_inspeccion SERIAL PRIMARY KEY,
-    cod_inspeccion CHAR(8) UNIQUE NOT NULL,
+    codigo CHAR(8) UNIQUE NOT NULL,
     tipo_inspeccion tipo_inspeccion_enum NOT NULL,
     fecha_hora_inspeccion TIMESTAMP,
     estado_revision estado_revision_enum NOT NULL,
@@ -473,26 +479,26 @@ CREATE TABLE InspeccionesLoteInsumo (
 
 create table NotificacionesReclamo (
 	id_notificacion_reclamo SERIAL primary key,
-	cod_notificacion_reclamo VARCHAR(8) unique not null,
-	id_inspeccion_lote_insumo INT not null,
+	codigo VARCHAR(8) unique not null,
 	id_lote_insumo INT not null,
 	id_empleado INT not null,
 	estado estado_notificacion_reclamo_enum not null,
 	
 	foreign key (id_empleado) references Empleados(id_empleado),
-	foreign key (id_inspeccion_lote_insumo) references InspeccionesLoteInsumo(id_inspeccion),
 	foreign key (id_lote_insumo) references LotesInsumo(id_lote_insumo)
 );
 
 create table Reclamos (
 	id_reclamo SERIAL primary key,
-	cod_reclamo VARCHAR(8) unique not null,
+	codigo VARCHAR(8) unique not null,
+	id_notificacion_reclamo INT null,
 	objetivo objetivo_reclamo_enum not null,
+	estado estado_reclamo_enum not null,
 	id_lote_insumo INT null,
 	monto_devuelto numeric(6,2) null CHECK (monto_devuelto >= 0),
-	fecha_atencion_reclamo TIMESTAMP not null,
-	
-	foreign key (id_lote_insumo) references LotesInsumo(id_lote_insumo)
+	fecha_atencion_reclamo TIMESTAMP null,
+	foreign key (id_lote_insumo) references LotesInsumo(id_lote_insumo),
+	foreign key (id_notificacion_reclamo) references NotificacionesReclamo(id_notificacion_reclamo)
 );
 
 create table InsumosXProveedores (
@@ -532,7 +538,7 @@ CREATE TABLE OrdenesProduccion (
 
 CREATE TABLE Abastecimientos (
     id_abastecimiento SERIAL PRIMARY key,
-    codigo_abastecimiento VARCHAR(50) unique NOT null,
+    codigo VARCHAR(50) unique NOT null,
     fecha_abastecimiento TIMESTAMP not null,
     estado estado_abastecimiento_enum  NOT null,
     id_empleado INT NOT NULL,
@@ -695,7 +701,7 @@ CREATE TABLE LotesProducto (
 -- Tablas Modulo Proceso Produccion
 CREATE TABLE Dosificados (
     id_dosificado SERIAL PRIMARY KEY,
-    cod_dosificado VARCHAR(8) UNIQUE NOT NULL,
+    codigo VARCHAR(8) UNIQUE NOT NULL,
     numero_batch NUMERIC(2) CHECK (numero_batch > 0),
     fecha_proceso TIMESTAMP NOT NULL,
     tiempo_proceso NUMERIC(3) CHECK (tiempo_proceso > 0),
@@ -753,7 +759,7 @@ CREATE TABLE EjemplaresMaquina (
 
 CREATE TABLE Mezclados (
     id_proceso_recurrente INT PRIMARY key, 
-    cod_mezclado VARCHAR(8) UNIQUE NOT NULL,
+    codigo VARCHAR(8) UNIQUE NOT NULL,
     porcentaje_humedad NUMERIC(2,2) CHECK (porcentaje_humedad > 0),
     cantidad_agua NUMERIC(3) CHECK (cantidad_agua > 0),
     id_empleado INT NOT NULL,
@@ -766,13 +772,13 @@ CREATE TABLE Mezclados (
 );
 
 CREATE TABLE TiposBoquilla (
-	cod_tipo_boquilla VARCHAR(5) PRIMARY KEY,
+	codigo VARCHAR(5) PRIMARY KEY,
 	descripcion VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE Moldeados (
     id_proceso_recurrente INT PRIMARY KEY, 
-    cod_moldeado VARCHAR(8) UNIQUE NOT NULL,
+    codigo VARCHAR(8) UNIQUE NOT NULL,
     tipo_boquilla VARCHAR(5) NOT NULL,
     presion NUMERIC(6,2) CHECK (presion > 0),
     velocidad_corte NUMERIC(6,2) CHECK (velocidad_corte > 0),
@@ -782,12 +788,12 @@ CREATE TABLE Moldeados (
     FOREIGN KEY (id_proceso_recurrente) REFERENCES ProcesosRecurrente(id_proceso_recurrente),
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado),
     FOREIGN KEY (id_ejemplar_maquina) REFERENCES EjemplaresMaquina(id_ejemplar_maquina),
-    FOREIGN KEY (tipo_boquilla) REFERENCES TiposBoquilla(cod_tipo_boquilla)
+    FOREIGN KEY (tipo_boquilla) REFERENCES TiposBoquilla(codigo)
 );
 
 CREATE TABLE Secados (
    	id_proceso_recurrente INT PRIMARY KEY, 
-    cod_secado VARCHAR(8) UNIQUE NOT NULL,
+    codigo VARCHAR(8) UNIQUE NOT NULL,
     numero_bandejas NUMERIC(2) CHECK (numero_bandejas > 0),
     temperatura_inicial NUMERIC(7,3) CHECK (temperatura_inicial > 0),
     temperatura_final NUMERIC(7,3) CHECK (temperatura_final > 0),
@@ -801,7 +807,7 @@ CREATE TABLE Secados (
 
 CREATE TABLE Envasados (
     id_envasado SERIAL PRIMARY KEY,
-    cod_envasado VARCHAR(8) UNIQUE NOT NULL,
+    codigo VARCHAR(8) UNIQUE NOT NULL,
     fecha_proceso TIMESTAMP NOT NULL,
     numero_batch NUMERIC(2) CHECK (numero_batch > 0),
     tipo_envase tipo_envase_enum NOT NULL,
