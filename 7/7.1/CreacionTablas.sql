@@ -326,10 +326,6 @@ CREATE TABLE Empleados (
     estado_laboral estado_laboral_enum NOT NULL
 );
 
-CREATE TABLE Productos (
-   id_producto SERIAL PRIMARY KEY
-);
-
 --Tablas de Almacen de Insumos 
 CREATE TABLE Insumos (
     id_insumo SERIAL PRIMARY KEY,
@@ -567,67 +563,65 @@ CREATE TABLE DetallesSolicitud (
 -- Tablas generales
 
 CREATE TABLE TiposUnidad (
-    CODIGO CHAR(4) PRIMARY KEY,
-    DESCRIPCION VARCHAR(20) NOT NULL
+    codigo CHAR(4) PRIMARY KEY,
+    descripcion VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE TiposIncidencia (
-    CODIGO CHAR(2) PRIMARY KEY,
-    DESCRIPCION VARCHAR(50) NOT NULL
+    codigo CHAR(2) PRIMARY KEY,
+    descripcion VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Vehiculos (
-    ID_VEHICULO SERIAL PRIMARY KEY,
-    NUM_PLACA CHAR(10) NOT NULL UNIQUE,
-    TIPO_UNIDAD CHAR(4) NOT NULL,
-    ESTADO estado_vehiculo_enum NOT NULL,
-    CAPAC_PESO NUMERIC(3) CHECK (CAPAC_PESO > 0),
-    CAPAC_EMP NUMERIC(3) CHECK (CAPAC_EMP > 0),
-    FOREIGN KEY (TIPO_UNIDAD) REFERENCES TiposUnidad(CODIGO)
+    id_vehiculo SERIAL PRIMARY KEY,
+    num_placa CHAR(10) NOT NULL UNIQUE,
+    tipo_unidad CHAR(4) NOT NULL,
+    estado estado_vehiculo_enum NOT NULL,
+    capac_peso NUMERIC(3) CHECK (capac_peso > 0),
+    capac_emp NUMERIC(3) CHECK (capac_emp > 0),
+    FOREIGN KEY (tipo_unidad) REFERENCES TiposUnidad(codigo)
 );
 
 
 CREATE TABLE EmpresasTransporte (
-    ID_EMPRESA INT PRIMARY KEY,
-    TIPO_COBERTURA tipo_cobertura_enum NOT NULL,
-    DESCRIPCION VARCHAR(50),
-    FOREIGN KEY (ID_EMPRESA) REFERENCES Empresas(ID_EMPRESA)
+    id_empresa INT PRIMARY KEY,
+    tipo_cobertura tipo_cobertura_enum NOT NULL,
+    descripcion VARCHAR(50),
+    FOREIGN KEY (id_empresa) REFERENCES Empresas(id_empresa)
 );
 
 
 CREATE TABLE Transportistas (
-    ID_TRANSPORTISTA SERIAL PRIMARY KEY,
-    ID_EMPRESA INT NOT NULL,
-    NUM_LICENCIA CHAR(9) NOT NULL UNIQUE,
-    TIPO_SERVICIO tipo_servicio_enum NOT NULL,
-    FOREIGN KEY (ID_EMPRESA) REFERENCES Empresas(ID_EMPRESA),
-    FOREIGN KEY (ID_TRANSPORTISTA) REFERENCES Personas(ID_PERSONA)
+    id_transportista SERIAL PRIMARY KEY,
+    id_empresa INT NOT NULL,
+    num_licencia CHAR(9) NOT NULL UNIQUE,
+    tipo_servicio tipo_servicio_enum NOT NULL,
+    FOREIGN KEY (id_empresa) REFERENCES Empresas(id_empresa),
+    FOREIGN KEY (id_transportista) REFERENCES Personas(id_persona)
 );
 
 CREATE TABLE ProgramacionesDespacho (
-    ID_PROG_DESP SERIAL PRIMARY KEY,
-    ID_TRANSPORTISTA INT NOT NULL,
-    ID_VEHICULO INT NOT NULL,
-    ID_EMPLEADO INT NOT NULL,
-    CODIGO CHAR(10) NOT NULL UNIQUE,
-    FECHA_PROG_SALIDA DATE NOT NULL,
-    HORA_PROG_SALIDA TIME NOT NULL,
-    FECHA_PROGRAMACION DATE NOT NULL,
-    FOREIGN KEY (ID_TRANSPORTISTA) REFERENCES Transportistas(ID_TRANSPORTISTA),
-    FOREIGN KEY (ID_VEHICULO) REFERENCES Vehiculos(ID_VEHICULO),
-    FOREIGN KEY (ID_EMPLEADO) REFERENCES Empleados(ID_EMPLEADO)
+    id_prog_desp SERIAL PRIMARY KEY,
+    id_transportista INT NOT NULL,
+    id_vehiculo INT NOT NULL,
+    id_empleado INT NOT NULL,
+    codigo CHAR(10) NOT NULL UNIQUE,
+    fecha_prog_salida TIMESTAMP NOT NULL,
+    fecha_programacion DATE NOT NULL,
+    FOREIGN KEY (id_transportista) REFERENCES Transportistas(id_transportista),
+    FOREIGN KEY (id_vehiculo) REFERENCES Vehiculos(id_vehiculo),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
 
 
 CREATE TABLE OrdenesCarga (
-    ID_ORDEN_CARGA SERIAL PRIMARY KEY,
-    ID_PROG_DESP INT NOT NULL,
-    CODIGO VARCHAR(10) NOT NULL UNIQUE,
-    FECHA_SALIDA DATE NOT NULL,
-    HORA_SALIDA TIME NOT NULL,
-    ESTADO estado_orden_carga_enum NOT NULL,
+    id_orden_carga SERIAL PRIMARY KEY,
+    id_prog_desp INT NOT NULL,
+    codigo VARCHAR(10) NOT NULL UNIQUE,
+    fecha_salida TIMESTAMP NOT NULL,
+    estado estado_orden_carga_enum NOT NULL,
 
-    FOREIGN KEY (ID_PROG_DESP) REFERENCES ProgramacionesDespacho(ID_PROG_DESP)
+    FOREIGN KEY (id_prog_desp) REFERENCES ProgramacionesDespacho(id_prog_desp)
 );
 
 
@@ -637,41 +631,40 @@ CREATE TABLE PedidosCliente (
 );
 
 CREATE TABLE PedidosDespacho (
-    ID_PROG_DESP INT NOT NULL,
-    ID_PEDIDO_CLIENTE INT NOT NULL,
-    MOTIVO_DESPACHO motivo_despacho_enum NOT NULL,
+    id_prog_desp INT NOT NULL,
+    id_pedido_cliente INT NOT NULL,
+    motivo_despacho motivo_despacho_enum NOT NULL,
 
-    PRIMARY KEY (ID_PROG_DESP, ID_PEDIDO_CLIENTE),
+    PRIMARY KEY (id_prog_desp, id_pedido_cliente),
 
-    FOREIGN KEY (ID_PROG_DESP) REFERENCES ProgramacionesDespacho(ID_PROG_DESP),
-    FOREIGN KEY (ID_PEDIDO_CLIENTE) REFERENCES PedidosCliente(id_pedido_cliente)
+    FOREIGN KEY (id_prog_desp) REFERENCES ProgramacionesDespacho(id_prog_desp),
+    FOREIGN KEY (id_pedido_cliente) REFERENCES PedidosCliente(id_pedido_cliente)
 );
 
 CREATE TABLE RegistrosEntrega (
-    ID_REG_ENT SERIAL PRIMARY KEY,
-    ID_ORDEN_CARGA INT NOT NULL,
-    ID_PEDIDO_CLIENTE INT NOT NULL,
-    ESTADO_ENTREGA estado_entrega_enum NOT NULL,
-    FECHA_ENTREGA DATE,
-    HORA_ENTREGA TIME,
+    id_reg_ent SERIAL PRIMARY KEY,
+    id_orden_carga INT NOT NULL,
+    id_pedido_cliente INT NOT NULL,
+    estado_entrega estado_entrega_enum NOT NULL,
+    fecha_entrega TIMESTAMP
 
-    FOREIGN KEY (ID_ORDEN_CARGA) REFERENCES OrdenesCarga(ID_ORDEN_CARGA),
-    FOREIGN KEY (ID_PEDIDO_CLIENTE) REFERENCES PedidosCliente(ID_PEDIDO_CLIENTE)
+    FOREIGN KEY (id_orden_carga) REFERENCES OrdenesCarga(id_orden_carga),
+    FOREIGN KEY (id_pedido_cliente) REFERENCES PedidosCliente(id_pedido_cliente)
 );
 
 CREATE TABLE GuiasRemision (
-    ID_GUIA_REM SERIAL PRIMARY KEY,
-    ID_REG_ENT INT NOT NULL,
-    NUM_GUIA CHAR(13) NOT NULL UNIQUE,
-    MOTIVO_TRASLADO motivo_traslado_enum NOT NULL,
-    FECHA_EMISION DATE NOT NULL,
-    ORIGEN_DIRECCION VARCHAR(150) NOT NULL,
-    UBIGEO_ORIGEN CHAR(6) NOT NULL,
-    DESTINO_DIRECCION VARCHAR(150) NOT NULL,
-    UBIGEO_DESTINO CHAR(6) NOT NULL,
-    FOREIGN KEY (ID_REG_ENT) REFERENCES RegistrosEntrega(ID_REG_ENT),
-    FOREIGN KEY (UBIGEO_ORIGEN) REFERENCES Ubigeos(ID_UBIGEO),
-    FOREIGN KEY (UBIGEO_DESTINO) REFERENCES Ubigeos(ID_UBIGEO)
+    id_guia_rem SERIAL PRIMARY KEY,
+    id_reg_ent INT NOT NULL,
+    num_guia CHAR(13) NOT NULL UNIQUE,
+    motivo_traslado motivo_traslado_enum NOT NULL,
+    fecha_emision DATE NOT NULL,
+    origen_direccion VARCHAR(150) NOT NULL,
+    ubigeo_origen CHAR(6) NOT NULL,
+    destino_direccion VARCHAR(150) NOT NULL,
+    ubigeo_destino CHAR(6) NOT NULL,
+    FOREIGN KEY (id_reg_ent) REFERENCES RegistrosEntrega(id_reg_ent),
+    FOREIGN KEY (ubigeo_origen) REFERENCES Ubigeos(id_ubigeo),
+    FOREIGN KEY (ubigeo_destino) REFERENCES Ubigeos(id_ubigeo)
 );
 
 CREATE TABLE LotesProducto (
@@ -831,18 +824,17 @@ CREATE TABLE InspeccionesEnvasado (
 );
 
 CREATE TABLE DetallesEntrega (
-    ID_REG_ENT INT NOT NULL,
-    ID_LOTE_PRODUCTO INT NOT NULL,
-    CANT_ENTREGADA NUMERIC(3) CHECK (CANT_ENTREGADA >= 0),
-    CANT_OBSERVADA NUMERIC(3) CHECK (CANT_OBSERVADA >= 0),
-    TIPO_INCIDENCIA CHAR(2),
+    id_reg_ent INT NOT NULL,
+    id_lote_producto INT NOT NULL,
+    cant_entregada NUMERIC(3) CHECK (cant_entregada >= 0),
+    cant_observada NUMERIC(3) CHECK (cant_observada >= 0),
+    tipo_incidencia CHAR(2),
 
-    PRIMARY KEY (ID_REG_ENT, ID_LOTE_PRODUCTO),
+    PRIMARY KEY (id_reg_ent, id_lote_producto),
 
-    FOREIGN KEY (ID_REG_ENT) REFERENCES RegistrosEntrega(ID_REG_ENT),
-    FOREIGN KEY (ID_LOTE_PRODUCTO) REFERENCES LotesProducto(ID_LOTE_PRODUCTO),
-    FOREIGN KEY (TIPO_INCIDENCIA) REFERENCES TiposIncidencia(CODIGO)
-    
+    FOREIGN KEY (id_reg_ent) REFERENCES RegistrosEntrega(id_reg_ent),
+    FOREIGN KEY (id_lote_producto) REFERENCES LotesProducto(id_lote_producto),
+    FOREIGN KEY (tipo_incidencia) REFERENCES TiposIncidencia(codigo)
 );
 
 CREATE TABLE SolicitudesMantenimiento(
