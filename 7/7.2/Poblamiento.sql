@@ -1,3 +1,6 @@
+-- El archivo no compila correctamente porque aún está pendiente el poblamiento de datos correspondientes al MÓDULO 07
+
+
 insert into Personas (id_persona, dni, nombre, ap_paterno, ap_materno, direccion, fecha_nac) values
 (1, '48590606', 'Laura', 'Pérez', 'Ramírez', 'Av. La Marina 519', '1996-07-21'),
 (2, '28416021', 'Eduardo', 'Flores', 'Sánchez', 'Jr. de la Unión 641', '2002-11-23'),

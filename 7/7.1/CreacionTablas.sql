@@ -228,6 +228,11 @@ END $$;
 CREATE TYPE tipo_inspeccion_enum AS ENUM ('Lote de Insumo', 'Proceso', 'Envasado', 'Picking');
 
 DO $$ BEGIN
+    DROP TYPE IF EXISTS estado_reclamo_enum;
+END $$;
+CREATE TYPE estado_reclamo_enum AS ENUM ('Pendiente', 'Completado');
+
+DO $$ BEGIN
     DROP TYPE IF EXISTS estado_revision_enum;
 END $$;
 CREATE TYPE estado_revision_enum AS ENUM ('Pendiente', 'Revisado');
@@ -605,6 +610,9 @@ CREATE TABLE Transportistas (
     FOREIGN KEY (id_transportista) REFERENCES Personas(id_persona)
 );
 
+/*
+Esta tabla plantea un tipo de despacho pero no fue presentada durante PC1 ni PC2 por lo que no sera considerada para el parcial
+
 CREATE TABLE CatalogosDespacho (
     id_tipo_despacho SERIAL PRIMARY KEY,
     tipo_alcance tipo_cobertura_enum NOT NULL,
@@ -615,10 +623,11 @@ CREATE TABLE CatalogosDespacho (
     estado estado_actividad_enum NOT NULL,
     descripcion TEXT
 );
+*/
 
 CREATE TABLE ProgramacionesDespacho (
     id_prog_desp SERIAL PRIMARY KEY,
-    id_tipo_despacho INT NOT NULL,
+    -- id_tipo_despacho INT NOT NULL,
     id_transportista INT NOT NULL,
     id_vehiculo INT NOT NULL,
     id_empleado INT NOT NULL,
@@ -627,8 +636,8 @@ CREATE TABLE ProgramacionesDespacho (
     fecha_programacion DATE NOT NULL,
     FOREIGN KEY (id_transportista) REFERENCES Transportistas(id_transportista),
     FOREIGN KEY (id_vehiculo) REFERENCES Vehiculos(id_vehiculo),
-    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado),
-    FOREIGN KEY (id_tipo_despacho) REFERENCES CatalogosDespacho(id_tipo_despacho)
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+    -- FOREIGN KEY (id_tipo_despacho) REFERENCES CatalogosDespacho(id_tipo_despacho)
 );
 
 
